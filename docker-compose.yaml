@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  scoreboard:
+    image: dockware/dev:latest
+    container_name: scoreboard
+    ports:
+      - "88:80"
+      - "443:443"
+      - "3335:3306"
+      - "22:22"
+      - "8888:8888"
+      - "9999:9999"
+      - "9998:9998"
+    networks:
+      - web
+    environment:
+      - PHP_VERSION=8.2
+      - XDEBUG_ENABLED=1
+      - XDEBUG_REMOTE_HOST=172.17.0.1
+      - VIRTUAL_HOST="scoreboard.local"
+      - VIRTUAL_PORT=88
+    volumes:
+      - "./:/var/www/html"
+      - "scoreboard_db:/var/lib/mysql"
+  scoreboard_db:
+    image: mariadb:latest
+    container_name: mysql_scoreboard
+    networks:
+      - web
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=shopware
+      - MYSQL_PASSWORD=shopware
+      - MYSQL_DATABASE=shopware
+networks:
+  web:
+    external: false
+volumes:
+  scoreboard_backend_cache:
+    driver: local
+  scoreboard_db:
+    driver: local
