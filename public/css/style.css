@@ -1,3 +1,4 @@
+/* Title bar */
 #sb-title-bar {
     align-items: center; /* Vertikale Zentrierung */
     background-color: #000;
@@ -9,6 +10,7 @@
     text-transform: uppercase;
 }
 
+/* General layout */
 #sb-main {
     flex-wrap: nowrap;
     height: calc(100vh - 5rem);
@@ -34,12 +36,111 @@
 }
 
 #sb-subtitle {
-    align-items: center; /* Vertikale Zentrierung */
+    align-items: center;
     background-color: #003;
     display: flex;
     height: 5rem;
-    justify-content: center; /* Horizontale Zentrierung */
+    justify-content: center;
     font-size: 2rem;
     text-align: center;
+}
 
+/* Player columns */
+.sb-player {
+    text-align: center;
+}
+
+.sb-player .name {
+    font-size: 2.6rem;
+    font-weight: bold;
+    padding: 1rem 2rem;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sb-player .points {
+    color: #EEDE17;
+    font-size: 6rem;
+    font-weight: bold;
+    line-height: 6rem;
+    text-align: center;
+}
+
+.sb-player .rounds-won {
+    text-align: center;
+}
+
+.sb-player .rounds-won .value {
+    background-color: #EEDE17;
+    color: #000;
+    display: inline-block;
+    font-size: 2.6rem;
+    font-weight: bold;
+    margin-top: 2rem;
+    min-width: 6.2rem;
+    padding: 0 2rem;
+}
+
+.sb-player .total-points {
+    font-weight: bold;
+    font-size: 2rem;
+    margin-top: 1rem;
+}
+
+/* Center area: timer, highscores */
+#sb-timer {
+    color: #53C804;
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+#sb-logo {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+#sb-logo img {
+    max-height: 4rem;
+}
+
+/* Highscore */
+#sb-highscore .title {
+    color: #FFFF93;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.highscore-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.highscore-row .pos,
+.highscore-row .name,
+.highscore-row .points {
+    display: inline-block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-right: 6px;
+}
+
+.highscore-row .pos {
+    min-width: 10%;
+}
+
+.highscore-row .name {
+    overflow:hidden;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 60%;
+}
+
+.highscore-row .points {
+    color: #FFFF93;
 }
