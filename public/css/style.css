@@ -89,11 +89,24 @@
 }
 
 /* Center area: timer, highscores */
+@keyframes timerEndBlink {
+    0%, 49% {
+        opacity: 1;
+    }
+    50%, 100% {
+        opacity: 0;
+    }
+}
+
 #sb-timer {
     color: #53C804;
     font-size: 4rem;
     font-weight: bold;
     text-align: center;
+}
+
+#sb-timer.timer-end-blink {
+    animation: timerEndBlink 1s steps(1, end) 11; /* Blink for 11 seconds */
 }
 
 #sb-logo {
