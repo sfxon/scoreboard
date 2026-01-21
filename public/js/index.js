@@ -1,10 +1,11 @@
-// Add Timer code.
-// -> timer.js
-
-
-// Add setup overlay to html.
+// ✓ Add Timer code -> timer.js
+// ✓ Add setup overlay to html and it's functionality to admin.js
 // Add setup code functionality.
-    // Activate setup by hotkey.
+    // ✓ Activate setup by hotkey.
+
+
+// Continue integration here:
+
     // Room title (is for internal setup/management)
     // Game title.
     // Game subtitle.
