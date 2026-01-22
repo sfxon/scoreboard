@@ -2,14 +2,23 @@
 // ✓ Add setup overlay to html and it's functionality to admin.js
 // Add setup code functionality.
     // ✓ Activate setup by hotkey.
-
-
-// Continue integration here:
+    
+    
+    // Füge eine Klasse "website" hinzu.
+    // Diese Klasse repräsentiert das Frontend.
+    // Diese Klasse hat eine Methode "getRoom" und initialisiert die Klasse "room" als Singleton, bzw. Objekt in sich.
+    // Die Haupt-Instanz der Klasse Frontend wird der Klasse "Admin" übergeben.
+    // Die Admin Klasse verwendet die Frontend Klasse, um bei Änderungen über das Admin-Element die Elemente im Frontend entsprechend einzustellen.
+    // Später wird das weiter entkoppelt, indem API-Calls zwischen diesen Elementen verwendet werden.
 
     // Room title (is for internal setup/management)
     // Game title.
     // Game subtitle.
     // Adding players (name, points)
+
+// Continue integration here:
+    
+    
     // Color layout (just some css code entry for now?)
 // Add input for points up and down for player 1
 // Add input for points up and down for player 2 (e.g. a general class for that, to be able to add multiple player setups in the future).

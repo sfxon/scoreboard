@@ -157,3 +157,14 @@
 .highscore-row .points {
     color: #FFFF93;
 }
+
+.tab-pane {
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+
+#sb-admin-players {
+    min-height: 8rem;
+    overflow-y: scroll;
+    width: 100%;
+}
