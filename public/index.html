@@ -119,9 +119,7 @@
                     <!-- Tab content "players" -->
                     <div class="tab-pane" id="sb-admin-modal-tab-players" role="tabpanel" aria-labelledby="sb-admin-modal-tab-players-btn" tabindex="0">
                         <button class="btn btn-primary" id="sb-admin-add-player">+ Add player</button>
-                        <div id="sb-admin-players">
-
-                        </div>
+                        <div id="sb-admin-players" class="row"></div>
                     </div>
 
                     <!-- Tab content "colors" -->
@@ -132,6 +130,23 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="sb-admin-player-template" style="display: none;">
+        <div class="col col-md-3 sb-admin-player">
+            <div class="mb-3">
+                <label>Name</label>
+                <input type="text" class="form-control name" placeholder="e.g. Jack Burton" value="" />
+            </div>
+            <div class="mb-3">
+                <label>Points</label>
+                <input type="text" class="form-control points" placeholder="e.g. 120" value="" />
+            </div>
+            <div class="mb-3">
+                <label>Lifetime Points</label>
+                <input type="text" class="form-control lifetime-points" placeholder="e.g. 1658156" value="" />
             </div>
         </div>
     </div>
