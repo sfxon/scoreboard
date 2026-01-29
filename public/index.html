@@ -136,17 +136,30 @@
 
     <div id="sb-admin-player-template" style="display: none;">
         <div class="col col-md-3 sb-admin-player">
-            <div class="mb-3">
-                <label>Name</label>
-                <input type="text" class="form-control name" placeholder="e.g. Jack Burton" value="" />
-            </div>
-            <div class="mb-3">
-                <label>Points</label>
-                <input type="text" class="form-control points" placeholder="e.g. 120" value="" />
-            </div>
-            <div class="mb-3">
-                <label>Lifetime Points</label>
-                <input type="text" class="form-control lifetime-points" placeholder="e.g. 1658156" value="" />
+            <div class="card">
+                <div class="card-header">
+                    Spieler aktivieren als:<br />
+
+                    <input type="radio" class="btn-check btn-select-player btn-select-as-player-1-value" name="options" autocomplete="off">
+                    <label class="btn btn-secondary btn-sm btn-select-as-player-1">1</label>
+
+                    <input type="radio" class="btn-check btn-select-player btn-select-as-player-2-value" name="options"autocomplete="off">
+                    <label class="btn btn-secondary btn-sm btn-select-as-player-2">2</label>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label>Name</label>
+                        <input type="text" class="form-control name" placeholder="e.g. Jack Burton" value="" />
+                    </div>
+                    <div class="mb-3">
+                        <label>Points</label>
+                        <input type="text" class="form-control points" placeholder="e.g. 120" value="" />
+                    </div>
+                    <div class="mb-3">
+                        <label>Lifetime Points</label>
+                        <input type="text" class="form-control lifetime-points" placeholder="e.g. 1658156" value="" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>

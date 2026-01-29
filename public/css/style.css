@@ -174,7 +174,9 @@
 }
 
 #sb-admin-players .sb-admin-player {
-    border: 1px solid #CCC;
-    margin-bottom: 1rem;
-    margin-left: 1rem;
+    margin-bottom: 2rem;
+}
+
+#sb-admin-players .btn-check.btn-select-player:checked + .btn {
+    background-color: #060;
 }

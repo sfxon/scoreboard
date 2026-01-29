@@ -1,3 +1,5 @@
+import sbPlayer from './player.js';
+
 export default class sbAdminPlayers {
     /**
      * @param {*} scoreboard 
@@ -15,31 +17,100 @@ export default class sbAdminPlayers {
         // This requires that all DOM Contents are already fired.
         // The class that instantiates this, has to take care of this.
         // An alternative way would be, to wrap this in // document.addEventListener('DOMContentLoaded', () => {
-        this.initEditorWithPlayers(scoreboard.getRoom().players);
+        this.initEditorWithPlayers(this.scoreboard.getRoom().players);
         this.initAddPlayerBtnHandler();
+
+        this.activatePlayer(1, this.scoreboard.getRoom().players[0].id);
+        this.activatePlayer(2, this.scoreboard.getRoom().players[1].id);
+    }
+
+    activatePlayer(playerNumber, playerId) {
+        // TODO: Activate the player in the scoreboard instance.
+
+        // Get the button, that is currently "active".
+        let oldSelectedInput = document.querySelector('.sb-admin-player .btn-select-as-player-' + playerNumber + '-value:checked');
+
+        if(oldSelectedInput !== null) {
+            oldSelectedInput.checked = false;
+        }
+
+        // Get the input that should be activated.
+        let selectedPlayerElement = document.getElementById('btn-select-player-' + playerId + '-' + playerNumber + '-value');
+
+        // Check, if there would be 2 buttons activated on the same element, and switch the other button to the old element,
+        // that had the activation before.
+        let oddNumber = 1;
+
+        if(playerNumber == 1) {
+            oddNumber = 2;
+        }
+
+        let oddPlayerInput = document.getElementById('btn-select-player-' + playerId + '-' + oddNumber + '-value');
+
+        if(oddPlayerInput.checked === true) {
+            if(oldSelectedInput !== null) {
+                let oddOldSelectedInput = document.getElementById('btn-select-player-' + oldSelectedInput.value + '-' + oddNumber + '-value');
+                oddOldSelectedInput.checked = true;
+            }
+
+            oddPlayerInput.checked = false;
+        }
+
+        // Activate the button that was clicked.
+        selectedPlayerElement.checked = 'checked';
+    }
+
+    addPlayerToEditor(player) {
+        let templateObj = document.createElement('template');
+        let template = this.sbAdminPlayerTemplateEl.innerHTML;
+        templateObj.innerHTML = template;
+
+        let newPlayerContainer = templateObj.content.firstElementChild;
+        newPlayerContainer.setAttribute('data-attr-player-id', player.id);
+        newPlayerContainer.querySelector('input.name').value = player.name;
+        newPlayerContainer.querySelector('input.points').value = player.points;
+        newPlayerContainer.querySelector('input.lifetime-points').value = player.lifetimePoints;
+
+        this.sbAdminPlayersEl.insertAdjacentElement('beforeend', newPlayerContainer);
+        this.initSelectPlayerButtons(newPlayerContainer, player.id);
     }
 
     initAddPlayerBtnHandler() {
         // Add keyup event handler.
         this.addPlayerBtnEl = document.getElementById(this.addPlayerBtnId);
         this.addPlayerBtnEl.addEventListener('click', (event) => {
-            alert('TODO: Implement logic.');
+            let player = new sbPlayer(null, "", 0, 0);
+            this.addPlayerToEditor(player);
         });
     }
 
     initEditorWithPlayers(players) {
         this.sbAdminPlayersEl = document.getElementById(this.sbAdminPlayersId);
         this.sbAdminPlayerTemplateEl = document.getElementById(this.sbAdminPlayerTemplateId);
-        let template = this.sbAdminPlayerTemplateEl.innerHTML;
+        
 
         for(let player of players) {
-            let templateObj = document.createElement('template');
-            templateObj.innerHTML = template;
-
-            let newPlayerContainer = templateObj.content.firstElementChild;
-            newPlayerContainer.querySelector('input.name').value = player.name;
-
-            this.sbAdminPlayersEl.insertAdjacentElement('beforeend', newPlayerContainer);
+            this.addPlayerToEditor(player);
         }
+    }
+
+    initSelectPlayerButtons(newPlayerContainer, playerId) {
+        this.initSelectPlayerButton(newPlayerContainer, 1, playerId);
+        this.initSelectPlayerButton(newPlayerContainer, 2, playerId);
+    }
+
+    initSelectPlayerButton(playerContainer, playerNumber, playerId) {
+        let btn = playerContainer.querySelector('.btn-select-as-player-' + playerNumber);
+        let input = playerContainer.querySelector('.btn-select-as-player-' + playerNumber + '-value');
+
+        btn.id = 'btn-select-player-' + playerId + '-' + playerNumber;
+        input.id = 'btn-select-player-' + playerId + '-' + playerNumber + '-value';
+        input.name = 'btn-select-player-' + playerNumber;
+        input.value = playerId;
+        btn.htmlFor = input.id;
+
+        btn.addEventListener('click', (event) => {
+            this.activatePlayer(playerNumber, playerContainer.getAttribute('data-attr-player-id'));
+        });
     }
 }
