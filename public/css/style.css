@@ -23,13 +23,13 @@
     height: 100%;
 }
 
-#sb-player-left {
+#sb-player-1 {
     background-color: #900;
     height: 100%;
     width: 21%;
 }
 
-#sb-player-right {
+#sb-player-2 {
     background-color: #036;
     height: 100%;
     width: 21%;
@@ -67,11 +67,11 @@
     text-align: center;
 }
 
-.sb-player .rounds-won {
+.sb-player .rounds-won-container {
     text-align: center;
 }
 
-.sb-player .rounds-won .value {
+.sb-player .rounds-won-container .rounds-won {
     background-color: #EEDE17;
     color: #000;
     display: inline-block;
@@ -82,7 +82,7 @@
     padding: 0 2rem;
 }
 
-.sb-player .total-points {
+.sb-player .lifetime-points {
     font-weight: bold;
     font-size: 2rem;
     margin-top: 1rem;

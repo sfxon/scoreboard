@@ -5,16 +5,41 @@ export default class sbRoom {
         roomTitle = "Room 1", 
         gameTitle = "My Game",
         gameSubtitle = "My Subtitle",
-        players = []
+        players = [],
+        activePlayerIds = [] // Array of { playerNumber: int, playerId: string }
     ) {
+        this.activePlayerIds = activePlayerIds;
         this.roomTitle = roomTitle;
         this.gameTitle = gameTitle;
         this.gameSubtitle = gameSubtitle;
         this.players = players;
+        this.playerCount = 2;
 
         if(this.players.length === 0) {
-            this.players.push(new sbPlayer(null, 'Home', 0, 0));
-            this.players.push(new sbPlayer(null, 'Visitor', 0, 0));
+            // Create player 1.
+            let player = new sbPlayer(null, 'Home', 0, 0, 0);
+            this.players.push(player);
+            this.setPlayer(1, player.id);
+
+            // Create player 2.
+            player = new sbPlayer(null, 'Visitor', 0, 0, 0);
+            this.players.push(player);
+            this.setPlayer(2, player.id);
         }
+    }
+
+    setPlayer(playerNumber, playerId) {
+        for(let i = 0, j = this.activePlayerIds.length; i < j; i++) {
+            if(this.activePlayerIds.playerNumber === playerNumber) {
+                this.activePlayerIds.playerId = playerId;
+                return;
+            }
+        }
+
+        // If it could not be set, the playerNumber was not set yet. Set it manually.
+        this.activePlayerIds.push({
+            playerNumber: playerNumber,
+            playerId: playerId
+        });
     }
 }

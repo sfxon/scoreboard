@@ -3,7 +3,8 @@ export default class sbPlayer {
         id,
         name,
         points,
-        lifetimePoints
+        lifetimePoints,
+        roundsWon
     ) {
         this.id = id;
 
@@ -14,6 +15,7 @@ export default class sbPlayer {
         this.name = name;
         this.points = points;
         this.lifetimePoints = lifetimePoints;
+        this.roundsWon = roundsWon;
     }
 
     generateUUID() {

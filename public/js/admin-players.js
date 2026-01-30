@@ -25,7 +25,8 @@ export default class sbAdminPlayers {
     }
 
     activatePlayer(playerNumber, playerId) {
-        // TODO: Activate the player in the scoreboard instance.
+        // Activate the player in the scoreboard instance.
+        this.scoreboard.activatePlayer(playerNumber, playerId);
 
         // Get the button, that is currently "active".
         let oldSelectedInput = document.querySelector('.sb-admin-player .btn-select-as-player-' + playerNumber + '-value:checked');
@@ -51,6 +52,7 @@ export default class sbAdminPlayers {
             if(oldSelectedInput !== null) {
                 let oddOldSelectedInput = document.getElementById('btn-select-player-' + oldSelectedInput.value + '-' + oddNumber + '-value');
                 oddOldSelectedInput.checked = true;
+                this.scoreboard.activatePlayer(oddNumber, oldSelectedInput.value);
             }
 
             oddPlayerInput.checked = false;
@@ -67,9 +69,11 @@ export default class sbAdminPlayers {
 
         let newPlayerContainer = templateObj.content.firstElementChild;
         newPlayerContainer.setAttribute('data-attr-player-id', player.id);
-        newPlayerContainer.querySelector('input.name').value = player.name;
-        newPlayerContainer.querySelector('input.points').value = player.points;
-        newPlayerContainer.querySelector('input.lifetime-points').value = player.lifetimePoints;
+
+        this.initInputField(newPlayerContainer, 'input.name', player, 'name',);
+        this.initInputField(newPlayerContainer, 'input.points', player, 'points',);
+        this.initInputField(newPlayerContainer, 'input.rounds-won', player, 'roundsWon',);
+        this.initInputField(newPlayerContainer, 'input.lifetime-points', player, 'lifetimePoints');
 
         this.sbAdminPlayersEl.insertAdjacentElement('beforeend', newPlayerContainer);
         this.initSelectPlayerButtons(newPlayerContainer, player.id);
@@ -79,7 +83,8 @@ export default class sbAdminPlayers {
         // Add keyup event handler.
         this.addPlayerBtnEl = document.getElementById(this.addPlayerBtnId);
         this.addPlayerBtnEl.addEventListener('click', (event) => {
-            let player = new sbPlayer(null, "", 0, 0);
+            let player = new sbPlayer(null, "", 0, 0, 0);
+            this.scoreboard.addPlayer(player);
             this.addPlayerToEditor(player);
         });
     }
@@ -92,6 +97,19 @@ export default class sbAdminPlayers {
         for(let player of players) {
             this.addPlayerToEditor(player);
         }
+    }
+
+    initInputField(domContainer, cssSelector, player, playerFieldName) {
+        let el = domContainer.querySelector(cssSelector);
+        el.value = player[playerFieldName];
+
+        el.addEventListener('keyup', (event) => {
+            this.inputFieldChangedHandler(domContainer, el, playerFieldName);
+        });
+
+        el.addEventListener('change', (event) => {
+            this.inputFieldChangedHandler(domContainer, el, playerFieldName);
+        });
     }
 
     initSelectPlayerButtons(newPlayerContainer, playerId) {
@@ -112,5 +130,11 @@ export default class sbAdminPlayers {
         btn.addEventListener('click', (event) => {
             this.activatePlayer(playerNumber, playerContainer.getAttribute('data-attr-player-id'));
         });
+    }
+
+    inputFieldChangedHandler(domContainer, el, playerFieldName) {
+        let playerId = domContainer.getAttribute('data-attr-player-id');
+        this.scoreboard.updatePlayerValue(playerId, playerFieldName, el.value);
+        this.scoreboard.updatePlayerViews();
     }
 }
