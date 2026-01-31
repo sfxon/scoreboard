@@ -70,13 +70,17 @@ export default class sbAdminPlayers {
         let newPlayerContainer = templateObj.content.firstElementChild;
         newPlayerContainer.setAttribute('data-attr-player-id', player.id);
 
-        this.initInputField(newPlayerContainer, 'input.name', player, 'name',);
-        this.initInputField(newPlayerContainer, 'input.points', player, 'points',);
-        this.initInputField(newPlayerContainer, 'input.rounds-won', player, 'roundsWon',);
+        this.initInputField(newPlayerContainer, 'input.name', player, 'name');
+        this.initInputField(newPlayerContainer, 'input.points', player, 'points');
+        this.initInputField(newPlayerContainer, 'input.rounds-won', player, 'roundsWon');
         this.initInputField(newPlayerContainer, 'input.lifetime-points', player, 'lifetimePoints');
 
         this.sbAdminPlayersEl.insertAdjacentElement('beforeend', newPlayerContainer);
         this.initSelectPlayerButtons(newPlayerContainer, player.id);
+    }
+
+    capitalizeFirstLetter(val) {
+        return String(val).charAt(0).toUpperCase() + String(val).slice(1);
     }
 
     initAddPlayerBtnHandler() {
@@ -103,12 +107,14 @@ export default class sbAdminPlayers {
         let el = domContainer.querySelector(cssSelector);
         el.value = player[playerFieldName];
 
+        let playerMethodName = 'set' + this.capitalizeFirstLetter(playerFieldName);
+
         el.addEventListener('keyup', (event) => {
-            this.inputFieldChangedHandler(domContainer, el, playerFieldName);
+            this.inputFieldChangedHandler(domContainer, el, playerMethodName);
         });
 
         el.addEventListener('change', (event) => {
-            this.inputFieldChangedHandler(domContainer, el, playerFieldName);
+            this.inputFieldChangedHandler(domContainer, el, playerMethodName);
         });
     }
 
@@ -132,9 +138,9 @@ export default class sbAdminPlayers {
         });
     }
 
-    inputFieldChangedHandler(domContainer, el, playerFieldName) {
+    inputFieldChangedHandler(domContainer, el, playerMethodName) {
         let playerId = domContainer.getAttribute('data-attr-player-id');
-        this.scoreboard.updatePlayerValue(playerId, playerFieldName, el.value);
+        this.scoreboard.updatePlayerValue(playerId, playerMethodName, el.value);
         this.scoreboard.updatePlayerViews();
     }
 }

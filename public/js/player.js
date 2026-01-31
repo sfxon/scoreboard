@@ -13,12 +13,14 @@ export default class sbPlayer {
         }
 
         this.name = name;
-        this.points = points;
-        this.lifetimePoints = lifetimePoints;
+        this.points = parseInt(points);
+        this.lifetimePoints = parseInt(lifetimePoints);
         this.roundsWon = roundsWon;
     }
 
     addLifetimePoints(pointsToAdd) {
+        pointsToAdd = parseInt(pointsToAdd);
+        
         if(pointsToAdd > 0) {
             this.lifetimePoints += pointsToAdd;
         }
@@ -27,6 +29,7 @@ export default class sbPlayer {
     addPoints(pointsToAdd) {
         // Here only the points of the running round are added.
         // Total points will only be added, when the round is finished.
+        pointsToAdd = parseInt(pointsToAdd);
         this.points += pointsToAdd;
     }
 
@@ -56,10 +59,37 @@ export default class sbPlayer {
     reducePoints(pointsToReduce) {
         // Here only the points of the running round are added.
         // Total points will only be added, when the round is finished.
+        pointsToReduce = parseInt(pointsToReduce);
         this.points -= pointsToReduce;
     }
 
     reduceRoundsWon() {
         this.roundsWon -= 1;
+    }
+
+    setLifetimePoints(lifetimePoints) {
+        this.lifetimePoints = this.getParsedNumberOrZero(lifetimePoints);
+    }
+
+    setName(name) {
+        this.name = name;
+    }
+
+    setPoints(points) {
+        this.points = this.getParsedNumberOrZero(points);
+    }
+
+    setRoundsWon(roundsWon) {
+        this.roundsWon = this.getParsedNumberOrZero(roundsWon);
+    }
+
+    getParsedNumberOrZero(value) {
+        value = parseInt(value);
+
+        if(isNaN(value)) {
+            return 0;
+        }
+
+        return value;
     }
 }

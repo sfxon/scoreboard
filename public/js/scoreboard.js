@@ -191,9 +191,9 @@ export default class sbScoreboard {
         });
     }
 
-    updatePlayerValue(playerId, fieldName, value) {
+    updatePlayerValue(playerId, methodName, value) {
         let player = this.getPlayerById(playerId);
-        player[fieldName] = value;
+        player[methodName](value);
     }
 
     updatePlayerViews() {
