@@ -1,4 +1,5 @@
 import sbRoom from './room.js';
+import sbTimer from './timer.js';
 
 /**
  * This class represents the scoreboard display and handles it's functionality.
@@ -11,6 +12,7 @@ export default class sbScoreboard {
         this.gameTitleId = 'sb-title';
         this.gameSubtitleEl = null;
         this.gameSubtitleId = 'sb-subtitle';
+        this.timer = new sbTimer();
         this.init();
     }
 
@@ -21,6 +23,36 @@ export default class sbScoreboard {
 
     addPlayer(player) {
         this.myRoom.players.push(player);
+    }
+
+    decrementPlayerPoints(playerNumber) {
+        let playerId = this.getPlayerIdByNumber(playerNumber);
+        let player = this.getPlayerById(playerId);
+        player.reducePoints(1);
+        this.updatePlayerViews();
+    }
+
+    decrementPlayerRounds(playerNumber) {
+        let playerId = this.getPlayerIdByNumber(playerNumber);
+        let player = this.getPlayerById(playerId);
+        player.reduceRoundsWon();
+        this.updatePlayerViews();
+    }
+
+    getPlayerByNumber(playerNumber) {
+        let playerId = this.getPlayerIdByNumber(playerNumber);
+        let player = this.getPlayerById(playerId);
+        return player;
+    }
+
+    getPlayerIdByNumber(playerNumber) {
+        for(let i = 0, j = this.myRoom.activePlayerIds.length; i < j; i++) {
+            if(this.myRoom.activePlayerIds[i].playerNumber === playerNumber) {
+                return this.myRoom.activePlayerIds[i].playerId;
+            }
+        }
+
+        return null;
     }
 
     getPlayerById(playerId) {
@@ -41,6 +73,47 @@ export default class sbScoreboard {
         return this.myRoom;
     }
 
+    endRound() {
+        for(let playerIdsEntry of this.myRoom.activePlayerIds) {
+            let player = this.getPlayerById(playerIdsEntry['playerId']);
+            player.addLifetimePoints(player.points);
+            player.points = 0;
+        }
+
+        this.updatePlayerViews();
+    }
+
+    resetRound() {
+        for(let playerIdsEntry of this.myRoom.activePlayerIds) {
+            let player = this.getPlayerById(playerIdsEntry['playerId']);
+            player.points = 0;
+        }
+
+        this.updatePlayerViews();
+    }
+
+    newGame() {
+        for(let playerIdsEntry of this.myRoom.activePlayerIds) {
+            let player = this.getPlayerById(playerIdsEntry['playerId']);
+            player.points = 0;
+            player.roundsWon = 0;
+        }
+
+        this.updatePlayerViews();
+    }
+
+    incrementPlayerPoints(playerNumber) {
+        let player = this.getPlayerByNumber(playerNumber);
+        player.addPoints(1);
+        this.updatePlayerViews();
+    }
+
+    incrementPlayerRounds(playerNumber) {
+        let player = this.getPlayerByNumber(playerNumber);
+        player.addRoundsWon();
+        this.updatePlayerViews();
+    }
+
     /**
      * Initialise html elements.
      */
@@ -50,6 +123,69 @@ export default class sbScoreboard {
 
         document.addEventListener('DOMContentLoaded', () => {
             this.updateView();
+        });
+
+        this.initKeyboardShortcuts();
+    }
+
+    initKeyboardShortcuts() {
+        document.addEventListener('keyup', (event) => {
+            console.log(event.key);
+
+            if(event.key === this.myRoom.keyboardShortcuts['startPause']) {
+                console.log('TODO: Implement start/stop timer.');
+            }
+
+            this.myRoom.keyboardShortcuts['1plus']
+
+            // Points added or removed per player.
+            if(event.key === this.myRoom.keyboardShortcuts.points['1plus']) {
+                this.incrementPlayerPoints(1);
+            }
+
+            if(event.key === this.myRoom.keyboardShortcuts.points['1minus']) {
+                this.decrementPlayerPoints(1);
+            }
+
+            if(event.key === this.myRoom.keyboardShortcuts.points['2plus']) {
+                this.incrementPlayerPoints(2);
+            }
+
+            if(event.key === this.myRoom.keyboardShortcuts.points['2minus']) {
+                this.decrementPlayerPoints(2);
+            }
+
+            // Rounds added or removed per player.
+            if(event.key === this.myRoom.keyboardShortcuts.roundsWon['1plus']) {
+                this.incrementPlayerRounds(1);
+            }
+
+            if(event.key === this.myRoom.keyboardShortcuts.roundsWon['1minus']) {
+                this.decrementPlayerRounds(1);
+            }
+
+            if(event.key === this.myRoom.keyboardShortcuts.roundsWon['2plus']) {
+                this.incrementPlayerRounds(2);
+            }
+
+            if(event.key === this.myRoom.keyboardShortcuts.roundsWon['2minus']) {
+                this.decrementPlayerRounds(2);
+            }
+
+            // End round
+            if(event.key === this.myRoom.keyboardShortcuts['endRound']) {
+                this.endRound();
+            }
+
+            // Reset
+            if(event.key === this.myRoom.keyboardShortcuts['resetRound']) {
+                this.resetRound();
+            }
+
+            // NewGame
+            if(event.key === this.myRoom.keyboardShortcuts['newGame']) {
+                this.newGame();
+            }
         });
     }
 

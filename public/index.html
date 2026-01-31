@@ -7,6 +7,7 @@
     <meta name="Author" content="Eska">
     <link rel="icon" type="image/x-icon" href="/img/favicon.png">
     <link href="css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="css/bootstrap-icons.min.css" rel="stylesheet" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
@@ -25,7 +26,7 @@
             </div>
             <div class="col-md-8" id="sb-middle">
                 <div id="sb-subtitle">Gespielt wird Best of 2</div>
-                <div id="sb-timer">02:56</div>
+                <div id="sb-timer">00:00</div>
                 <div id="sb-logo"><img src="img/sb-logo.png" alt="Game Logo"></div>
                 <div id="sb-highscore">
                     <div class="title">Highscores</div>
@@ -102,6 +103,26 @@
                 <div class="tab-content">
                     <!-- Tab content "general" -->
                     <div class="tab-pane active" id="sb-admin-modal-tab-general" role="tabpanel" aria-labelledby="sb-admin-modal-tab-general-btn" tabindex="0">
+                        <div id="sb-admin-round-options">
+                            <p><b>Round-Options:</b></p>
+                            <div class="mb-3">
+                                <label for="sb-game-left-time">Time left</label>
+                                <input type="text" class="form-control" id="sb-game-left-time" placeholder="Filled automatically when round is startet" value="" />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <button type="button" class="btn btn-secondary" id="round-pause-button">End</button>
+                                    <button type="button" class="btn btn-secondary" id="round-pause-button">Reset</button>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <button type="button" class="btn btn-primary" id="round-start-button">Round Start&nbsp;<i class="bi bi-play"></i></button>
+                                    <button type="button" class="btn btn-primary" id="round-pause-button" style="display: none;">Round Pause&nbsp;<i class="bi bi-pause"></i></button>
+                                </div>
+                                <div class="col-md-4">
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="mb-3">
                             <label for="sb-room-title-input">Room Title</label>
                             <input type="text" class="form-control" id="sb-room-title-input" placeholder="e.g. Finals" value="" />
@@ -113,6 +134,16 @@
                         <div class="mb-3">
                             <label for="sb-game-subtitle-input">Game Subtitle</label>
                             <input type="text" class="form-control" id="sb-game-subtitle-input" placeholder="e.g. Todays Finals" value="" />
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="sb-game-use-timer">
+                                <label class="form-check-label" for="sb-game-use-timer">Use Timer</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="sb-game-round-time-input">Round-Time</label>
+                            <input type="text" class="form-control" id="sb-game-round-time-input" placeholder="e.g. 5:00" value="" />
                         </div>
                     </div>
 
@@ -127,9 +158,6 @@
                         <p>Colors</p>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save</button>
             </div>
         </div>
     </div>
@@ -170,7 +198,6 @@
 
     <script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="js/index.js"></script>
-    <script src="js/timer.js"></script>
 
     <script type="module">
         import sbAdmin from './js/admin.js';

@@ -18,6 +18,22 @@ export default class sbPlayer {
         this.roundsWon = roundsWon;
     }
 
+    addLifetimePoints(pointsToAdd) {
+        if(pointsToAdd > 0) {
+            this.lifetimePoints += pointsToAdd;
+        }
+    }
+
+    addPoints(pointsToAdd) {
+        // Here only the points of the running round are added.
+        // Total points will only be added, when the round is finished.
+        this.points += pointsToAdd;
+    }
+
+    addRoundsWon() {
+        this.roundsWon += 1;
+    }
+
     generateUUID() {
         // Warning. Untested.
         if(typeof window.crypto.randomUUID === 'function') {
@@ -35,5 +51,15 @@ export default class sbPlayer {
         return ([1e7]+1e3+4e3+8e3+1e11).replace(/[018]/g, c =>
             (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
         );
+    }
+
+    reducePoints(pointsToReduce) {
+        // Here only the points of the running round are added.
+        // Total points will only be added, when the round is finished.
+        this.points -= pointsToReduce;
+    }
+
+    reduceRoundsWon() {
+        this.roundsWon -= 1;
     }
 }

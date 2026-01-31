@@ -15,6 +15,25 @@ export default class sbRoom {
         this.players = players;
         this.playerCount = 2;
 
+        this.keyboardShortcuts = {
+            'startPause': 'Spacebar',
+            'points': {
+                '1plus': '1',
+                '1minus': '4',
+                '2plus': '3',
+                '2minus': '6'
+            },
+            'roundsWon': {
+                '1plus': 'y',
+                '1minus': 'a',
+                '2plus': 'm',
+                '2minus': 'k'
+            },
+            'resetRound': 'Delete',
+            'endRound': 'Home',
+            'newGame': 'N'
+        };
+
         if(this.players.length === 0) {
             // Create player 1.
             let player = new sbPlayer(null, 'Home', 0, 0, 0);

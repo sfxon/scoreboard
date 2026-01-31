@@ -73,7 +73,7 @@ export default class sbAdminGeneral {
         // Add keyup event handler.
         document.addEventListener('keyup', (event) => {
             // If no supported key has been pressed, leave the event handler.
-            if(event.key !== 'Escape' && event.key !== ' ') {
+            if(event.key !== 'Escape') {
                 return;
             }
 
