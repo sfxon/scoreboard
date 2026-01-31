@@ -22,6 +22,7 @@ export default class sbAdmin {
         // Hook everything togehter, when the DOM loading is finished.
         document.addEventListener('DOMContentLoaded', () => {
             // Init room values in editor and website.
+            this.initModalShownHiddenEventHandlers();
             this.initModal();
             this.sbModal.show();
             this.sbAdminGeneral = new sbAdminGeneral(this.sbModal, this.scoreboard);
@@ -40,5 +41,17 @@ export default class sbAdmin {
                 keyboard: false
             }
         );
+    }
+
+    initModalShownHiddenEventHandlers() {
+        const modalEl = document.getElementById(this.sbModalId);
+        
+        modalEl.addEventListener('shown.bs.modal', () => {
+            this.scoreboard.keyboardShortcutsActivated = false;
+        });
+
+        modalEl.addEventListener('hidden.bs.modal', () => {
+            this.scoreboard.keyboardShortcutsActivated = true;
+        });
     }
 }

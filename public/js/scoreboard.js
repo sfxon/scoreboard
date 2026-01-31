@@ -7,11 +7,12 @@ import sbTimer from './timer.js';
 export default class sbScoreboard {
     constructor(
     ) {
-        this.myRoom = new sbRoom();
         this.gameTitleEl = null;
         this.gameTitleId = 'sb-title';
         this.gameSubtitleEl = null;
         this.gameSubtitleId = 'sb-subtitle';
+        this.keyboardShortcutsActivated = true;
+        this.myRoom = new sbRoom();
         this.timer = new sbTimer();
         this.init();
     }
@@ -130,13 +131,14 @@ export default class sbScoreboard {
 
     initKeyboardShortcuts() {
         document.addEventListener('keyup', (event) => {
-            console.log(event.key);
+            if(!this.keyboardShortcutsActivated) {
+                return;
+            }
 
+            // Start / Pause the game.
             if(event.key === this.myRoom.keyboardShortcuts['startPause']) {
                 console.log('TODO: Implement start/stop timer.');
             }
-
-            this.myRoom.keyboardShortcuts['1plus']
 
             // Points added or removed per player.
             if(event.key === this.myRoom.keyboardShortcuts.points['1plus']) {
