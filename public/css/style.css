@@ -193,3 +193,8 @@
     margin-left: auto;
     margin-right: 0;
 }
+
+h2.modal-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
