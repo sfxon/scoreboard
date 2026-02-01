@@ -17,6 +17,7 @@ export default class sbAdminGeneral {
         // An alternative way would be, to wrap this in // document.addEventListener('DOMContentLoaded', () => {
         this.initKeyboardInputHandler();
         this.initGeneralInputFields();
+        this.initButtonEventHandlers();
     }
 
     /**
@@ -25,6 +26,31 @@ export default class sbAdminGeneral {
     generalInputElementChanged(newValue, updatedRoomVariable) {
         this.scoreboard.getRoom()[updatedRoomVariable] = newValue;
         this.scoreboard.updateView();
+    }
+
+    initButtonEventHandlers() {
+        document.getElementById('round-end-button')?.addEventListener('click', () => {
+            this.scoreboard.endRound();
+        });
+
+        document.getElementById('round-reset-button')?.addEventListener('click', () => {
+            this.scoreboard.resetRound();
+        });
+
+        // round-start-button
+        document.getElementById('round-start-button')?.addEventListener('click', () => {
+            alert('start timer');
+        });
+
+        // round-start-button
+        document.getElementById('round-end-button')?.addEventListener('click', () => {
+            alert('end round');
+        });
+
+        // round-pause-button
+        document.getElementById('round-pause-button')?.addEventListener('click', () => {
+            alert('pause timer');
+        });
     }
 
     /**
