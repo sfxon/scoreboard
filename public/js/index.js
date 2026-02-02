@@ -8,11 +8,28 @@
     // ✓ Adding players (name, points)
     // ✓ Select players for current game.
     // ✓ Add input for points up and down for players
+    // ✓ See, if the structure is useful.
 
 // Continue integration here:
 
-// Add nextRound button and newMatch Button
 // Add animation, whenever player points have been added (delayed after an input, so if you add 3 points one after each other, wait for 5 seconds and then display the animation.)
+    // Look at the CSS text animation here: https://prismic.io/blog/css-animation-examples
+        // CSS Text
+        // CSS party
+        // Sparkly Shiny Text
+        // Rainbow Gradient
+        // Storm Button
+        // Making pancake loader (Up the stairs!)
+
+    // This is also a nice source: https://www.sliderrevolution.com/resources/css-text-animation/
+        // Rainbow
+        // Pure CSS | FadeIn Text with bars
+        // Animated "text-shadow" pattern
+        // Interstellar
+        // NEON
+        // CSS Particle Effects
+
+
 // Add browser database.
 // Add some kind of api - for now it uses the browser database - so the browser code for the database will have an endpoint code-layer, as well as an client code-layer.
 // Fix responsive view (css).
