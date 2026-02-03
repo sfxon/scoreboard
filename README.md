@@ -20,6 +20,28 @@ Use this scoreboard to display your live game scores.
   * Currently I will not refactor the system.
   * A future approach might optimize the base system, to reflect more kinds of sports. See Concepts > Data Hierarchy for more information.
 
+* Add more animations. Inspirations:
+  * Look at the CSS text animation here: https://prismic.io/blog/css-animation-examples
+    * CSS Text
+    * CSS party
+    * Sparkly Shiny Text
+    * Rainbow Gradient
+    * Storm Button
+    * Making pancake loader (Up the stairs!)
+
+  * This is also a nice source: https://www.sliderrevolution.com/resources/css-text-animation/
+    * Rainbow
+    * Pure CSS | FadeIn Text with bars
+    * Animated "text-shadow" pattern
+    * Interstellar
+    * NEON
+    * CSS Particle Effects
+
+  * State Machine Architecture
+    * Learn more about state machines, like the ones, that are for example used overall the nes game logic.
+    * Start effects and animations, when specific states are reached.
+
+
 ## Concepts
 
 ### Data Hierarchy
@@ -27,6 +49,7 @@ Use this scoreboard to display your live game scores.
 The projects data hierarchie is
 
 ```Game > League > Tournament > Match > Round```
+
 
 #### Game
 

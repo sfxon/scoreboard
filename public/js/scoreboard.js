@@ -1,5 +1,6 @@
 import sbRoom from './room.js';
 import sbTimer from './timer.js';
+import sbIncrementAnimator from './scoreboardIncrementAnimator.js';
 
 /**
  * This class represents the scoreboard display and handles it's functionality.
@@ -12,6 +13,7 @@ export default class sbScoreboard {
         this.gameSubtitleEl = null;
         this.gameSubtitleId = 'sb-subtitle';
         this.keyboardShortcutsActivated = true;
+        this.myIncrementAnimator = new sbIncrementAnimator();
         this.myRoom = new sbRoom();
         this.timer = new sbTimer();
         this.init();
@@ -107,6 +109,7 @@ export default class sbScoreboard {
         let player = this.getPlayerByNumber(playerNumber);
         player.addPoints(1);
         this.updatePlayerViews();
+        this.myIncrementAnimator.prepareAnimation('points' + playerNumber, player.name, 1);
     }
 
     incrementPlayerRounds(playerNumber) {
