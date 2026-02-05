@@ -36,12 +36,12 @@ export default class sbRoom {
 
         if(this.players.length === 0) {
             // Create player 1.
-            let player = new sbPlayer(null, 'Home', 0, 0, 0);
+            let player = new sbPlayer(null, 'Home', 0, 0, 0, 0);
             this.players.push(player);
             this.setPlayer(1, player.id);
 
             // Create player 2.
-            player = new sbPlayer(null, 'Visitor', 0, 0, 0);
+            player = new sbPlayer(null, 'Visitor', 0, 0, 0, 0);
             this.players.push(player);
             this.setPlayer(2, player.id);
         }

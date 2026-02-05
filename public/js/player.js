@@ -4,7 +4,8 @@ export default class sbPlayer {
         name,
         points,
         lifetimePoints,
-        roundsWon
+        roundsWon,
+        lifetimeRoundsWon
     ) {
         this.id = id;
 
@@ -16,6 +17,7 @@ export default class sbPlayer {
         this.points = parseInt(points);
         this.lifetimePoints = parseInt(lifetimePoints);
         this.roundsWon = roundsWon;
+        this.lifetimeRoundsWon = lifetimeRoundsWon;
     }
 
     addLifetimePoints(pointsToAdd) {

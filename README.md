@@ -57,30 +57,29 @@ Game represents the concept of a game. There are many different kind of games, b
 so this usually does not represent a general group, but the dedicated game with it's rulesets, that can be played.
 
 
-#### League
+#### Room
 
-A League is a place, where an instance of a game is played regularly. It contains players and holds statistics about played rounds, highscores, etc in this league.
-The system actually uses "Room" as a synonym. That might be subject of change in the future.
-
-
-#### Tournament
-
-A tournament is the running instance of a game.
-A tournament can consist of different players, that are playing this tournament.
-A synonym for tournament can be season. The differenciation between Tournament and Season might be, how long the event is,
-where a Tournament might be a shorter period, like a couple of hours or a view days,
-while a season might last over a couple of months or a year.
+A room is one scoreboard instance.
+The system is kept short in this part,
+since we really want to focus on the scoreboard for the moment,
+not on a big score-tracking system.
 
 
-#### Match
+#### Player
 
-A match is part of a Tournament/Season.
-A match can be setup of multiple rounds.
-Not all games require, to make it that complicated.
-Often we just skip the "match" entity and go directly into rounds for the key of simplicity.
+For simplicity, a room just contains players.
+A player can be a real player, or a team.
+
+If we need more complexity, we'd add it for different boards,
+or revise the system later. But for now we are good with
+keep it stupid simple.
 
 
-#### Round
+## API
 
-A round is part of a match.
-It is intended to be used as synonym for Quarter (American Football), Third (Icehokey), Halftime (Soccer), ...
+The system is using an api to save data.
+The API is currently only implemented locally in the browser, and saves data in an indexed db.
+It acts like a usual REST-API, meaning, it takes command-type, endpoint and parameters.
+In a future version it can use the methods to save data on a server - it just needs an additional implementation of the API then.
+
+![Diagram of the api](docs/api.drawio.svg)

@@ -13,8 +13,8 @@
 
 
 // Continue integration here:
-// Add browser database.
-// Add some kind of api - for now it uses the browser database - so the browser code for the database will have an endpoint code-layer, as well as a client code-layer.
+// Entitäten genau definieren.
+// Add index db as a browser database to save the state by adding a custom api - for now it uses the browser database - so the browser code for the database will have an endpoint code-layer, as well as a client code-layer.
 // Fix responsive view (css).
 // Add max points per round
 // Add max rounds

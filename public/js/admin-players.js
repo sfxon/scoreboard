@@ -87,7 +87,7 @@ export default class sbAdminPlayers {
         // Add keyup event handler.
         this.addPlayerBtnEl = document.getElementById(this.addPlayerBtnId);
         this.addPlayerBtnEl.addEventListener('click', (event) => {
-            let player = new sbPlayer(null, "", 0, 0, 0);
+            let player = new sbPlayer(null, "", 0, 0, 0, 0);
             this.scoreboard.addPlayer(player);
             this.addPlayerToEditor(player);
         });

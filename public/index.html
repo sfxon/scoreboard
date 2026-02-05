@@ -1,7 +1,7 @@
 <!Doctype html>
 <html lang="en" data-bs-theme="dark">
 <head>
-    <title>Scoreboard</title>
+    <title>Scoreboard - Room selection</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="Author" content="Eska">
@@ -12,205 +12,53 @@
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row" id="sb-title-bar">
+        <div class="row">
             <div class="col-12">
-                <h1 id="sb-title">Auntie Ball - Starcluster League</h1>
+                <h1 id="sb-title">Scoreboards<h1>
             </div>
         </div>
-        <div class="row" id="sb-main">
-            <div class="col-md-2 sb-player" id="sb-player-1">
-                <div class="name">Home</div>
-                <div class="points">0</div>
-                <div class="rounds-won-container"><div class="rounds-won">0</div></div>
-                <div class="lifetime-points">0</div>
-            </div>
-            <div class="col-md-8" id="sb-middle">
-                <div id="sb-subtitle">Gespielt wird Best of 2</div>
-                <div id="sb-timer">00:00</div>
-                <div id="sb-logo"><img src="img/sb-logo.png" alt="Game Logo"></div>
-                <div id="sb-highscore">
-                    <div class="title">Highscores</div>
-                    <div class="row">
-                        <div class="col-md-3 offset-md-2">
-                            <div class="highscore-row">
-                                <div class="pos">1</div>
-                                <div class="name">Super Mario</div>
-                                <div class="points">566344</div>
-                            </div>
-                            <div class="highscore-row">
-                                <div class="pos">2</div>
-                                <div class="name">Peach</div>
-                                <div class="points">438344</div>
-                            </div>
-                            <div class="highscore-row">
-                                <div class="pos">3</div>
-                                <div class="name">Unc</div>
-                                <div class="points">234000</div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 offset-md-2">
-                            <div class="highscore-row">
-                                <div class="pos">4</div>
-                                <div class="name">Toni Macaroni</div>
-                                <div class="points">100000</div>
-                            </div>
-                            <div class="highscore-row">
-                                <div class="pos">5</div>
-                                <div class="name">J.R.R. T.</div>
-                                <div class="points">99343</div>
-                            </div>
-                            <div class="highscore-row">
-                                <div class="pos">6</div>
-                                <div class="name">Auntie</div>
-                                <div class="points">23521</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2 sb-player" id="sb-player-2">
-                <div class="name">Visitor</div>
-                <div class="points">0</div>
-                <div class="rounds-won-container"><div class="rounds-won">0</div></div>
-                <div class="lifetime-points">0</div>
+        <div class="row">
+            <div class="col-12">
+                <button id="sb-index-open-modal-btn" class="btn btn-primary">Create New Room</button>
             </div>
         </div>
-    </div>
-    <div id="sb-score-display-container" style="display: none;">
-        <div id="sb-score-display">
-            <div id="sb-score-display-animation" class="shadow-dance-text"><span class="name">Player 1</span><span class="points">+1000</span></div>
-        </div>
+        <div class="row" id="sb-index-scoreboard-list"></div>
     </div>
 
     <!-- Admin Modal -->
-    <div class="modal modal-xl" tabindex="-1" id="admin-modal">
+    <div class="modal modal-xl" tabindex="-1" id="sb-index-create-room-modal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title">Setup Scoreboard</h2>
+                    <h2 class="modal-title">Create Room</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" id="sb-admin-modal-tabs" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="sb-admin-modal-tab-general-btn" data-bs-toggle="tab" data-bs-target="#sb-admin-modal-tab-general" type="button" role="tab" aria-controls="sb-admin-modal-tab-general" aria-selected="true">General</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="sb-admin-modal-tab-players-btn" data-bs-toggle="tab" data-bs-target="#sb-admin-modal-tab-players" type="button" role="tab" aria-controls="sb-admin-modal-tab-players" aria-selected="false">Players</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="sb-admin-modal-tab-colors-btn" data-bs-toggle="tab" data-bs-target="#sb-admin-modal-tab-colors" type="button" role="tab" aria-controls="sb-admin-modal-tab-colors" aria-selected="false">Colors</button>
-                        </li>
-                    </ul>
+                    <div class="mb-3">
+                        <label for="sb-index-create-room-name" class="form-label">Room-Name</label>
+                        <input type="text" id="sb-index-create-room-name" class="form-control" value="" autocomplete="false">
+                    </div>
 
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <!-- Tab content "general" -->
-                        <div class="tab-pane active" id="sb-admin-modal-tab-general" role="tabpanel" aria-labelledby="sb-admin-modal-tab-general-btn" tabindex="0">
-                            <div id="sb-admin-round-options">
-                                <p><b>Round-Options:</b></p>
-                                <div class="mb-3">
-                                    <label for="sb-game-left-time">Time left</label>
-                                    <input type="text" class="form-control" id="sb-game-left-time" placeholder="Filled automatically when round is startet" value="">
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <button type="button" class="btn btn-secondary" id="round-end-button">End</button>
-                                        <button type="button" class="btn btn-secondary" id="round-reset-button">Reset</button>
-                                    </div>
-                                    <div class="col-md-4 text-center">
-                                        <button type="button" class="btn btn-primary" id="round-start-button">Round Start&nbsp;<i class="bi bi-play"></i></button>
-                                        <button type="button" class="btn btn-primary" id="round-pause-button" style="display: none;">Round Pause&nbsp;<i class="bi bi-pause"></i></button>
-                                    </div>
-                                    <div class="col-md-4">
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="sb-room-title-input">Room Title</label>
-                                <input type="text" class="form-control" id="sb-room-title-input" placeholder="e.g. Finals" value="">
-                            </div>
-                            <div class="mb-3">
-                                <label for="sb-game-title-input">Game Title</label>
-                                <input type="text" class="form-control" id="sb-game-title-input" placeholder="e.g. Auntie Ball" value="">
-                            </div>
-                            <div class="mb-3">
-                                <label for="sb-game-subtitle-input">Game Subtitle</label>
-                                <input type="text" class="form-control" id="sb-game-subtitle-input" placeholder="e.g. Todays Finals" value="">
-                            </div>
-                            <div class="mb-3">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="sb-game-use-timer">
-                                    <label class="form-check-label" for="sb-game-use-timer">Use Timer</label>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="sb-game-round-time-input">Round-Time</label>
-                                <input type="text" class="form-control" id="sb-game-round-time-input" placeholder="e.g. 5:00" value="">
-                            </div>
-                        </div>
-
-                        <!-- Tab content "players" -->
-                        <div class="tab-pane" id="sb-admin-modal-tab-players" role="tabpanel" aria-labelledby="sb-admin-modal-tab-players-btn" tabindex="0">
-                            <button class="btn btn-primary" id="sb-admin-add-player">+ Add player</button>
-                            <div id="sb-admin-players" class="row"></div>
-                        </div>
-
-                        <!-- Tab content "colors" -->
-                        <div class="tab-pane" id="sb-admin-modal-tab-colors" role="tabpanel" aria-labelledby="sb-admin-modal-tab-colors-btn" tabindex="0">
-                            <p>Colors</p>
-                        </div>
+                    <div class="mb-3">
+                        <label for="sb-index-create-room-game-type" class="form-label">Game Type</label>
+                        <select id="sb-index-create-room-game-type" class="form-select">
+                            <option value="1" selected="selected">Cornhole</option>
+                        </select>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="sb-admin-player-template" style="display: none;">
-        <div class="col col-md-3 sb-admin-player">
-            <div class="card">
-                <div class="card-header">
-                    Spieler aktivieren als:<br>
-
-                    <input type="radio" class="btn-check btn-select-player btn-select-as-player-1-value" name="options">
-                    <label class="btn btn-secondary btn-sm btn-select-as-player-1">1</label>
-
-                    <input type="radio" class="btn-check btn-select-player btn-select-as-player-2-value" name="options">
-                    <label class="btn btn-secondary btn-sm btn-select-as-player-2">2</label>
-                </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label>Name</label>
-                        <input type="text" class="form-control name" placeholder="e.g. Jack Burton" value="">
-                    </div>
-                    <div class="mb-3">
-                        <label>Points</label>
-                        <input type="text" class="form-control points" placeholder="e.g. 120" value="">
-                    </div>
-                    <div class="mb-3">
-                        <label>Rounds won</label>
-                        <input type="text" class="form-control rounds-won" placeholder="e.g. 120" value="">
-                    </div>
-                    <div class="mb-3">
-                        <label>Lifetime Points</label>
-                        <input type="text" class="form-control lifetime-points" placeholder="e.g. 1658156" value="">
-                    </div>
+                <div class="modal-footer">
+                    <button id="sb-index-create-room-btn" class="btn btn-primary">Create Room</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
-    <script src="js/index.js"></script>
-
     <script type="module">
-        import sbAdmin from './js/admin.js';
-        import sbScoreboard from './js/scoreboard.js';
+        import sbScoreboard from './js/scoreboard-index.js';
 
         var scoreboard = new sbScoreboard();
-        var admin = new sbAdmin(scoreboard);
     </script>
+
 </body>
 </html>

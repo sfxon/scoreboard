@@ -1,0 +1,48 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0" version="29.3.7">
+  <diagram name="Page-1" id="5f0bae14-7c28-e335-631c-24af17079c00">
+    <mxGraphModel dx="1426" dy="751" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="39150e848f15840c-4" parent="1" style="html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" value="«interface»&lt;br&gt;&lt;b&gt;sbApi&lt;/b&gt;" vertex="1">
+          <mxGeometry height="50" width="120" x="300" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="B7Kp7uF2eE0gXkZY_n3r-1" parent="1" style="shape=component;align=left;spacingLeft=36;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;html=1;" value="sbLocalApiEndpoint" vertex="1">
+          <mxGeometry height="60" width="200" x="120" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="B7Kp7uF2eE0gXkZY_n3r-2" parent="1" style="shape=component;align=left;spacingLeft=36;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;html=1;" value="sbServerApiEndpoint" vertex="1">
+          <mxGeometry height="60" width="200" x="400" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="B7Kp7uF2eE0gXkZY_n3r-3" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;rounded=0;" value="Beschränkt auf diese Befehle:&lt;br&gt;GET&lt;br&gt;&lt;div&gt;POST&lt;/div&gt;DELETE&lt;div&gt;&lt;br&gt;We mainly use POST, since this command is super flexible and the path describs, what to do.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="180" x="680" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="B7Kp7uF2eE0gXkZY_n3r-5" edge="1" parent="1" source="39150e848f15840c-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;labelBackgroundColor=none;startArrow=none;startFill=0;startSize=8;endArrow=open;endFill=0;endSize=16;fontFamily=Verdana;fontSize=12;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="B7Kp7uF2eE0gXkZY_n3r-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="560" y="80" as="sourcePoint" />
+            <mxPoint x="620" y="80" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B7Kp7uF2eE0gXkZY_n3r-6" edge="1" parent="1" source="39150e848f15840c-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;labelBackgroundColor=none;startArrow=none;startFill=0;startSize=8;endArrow=open;endFill=0;endSize=16;fontFamily=Verdana;fontSize=12;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="B7Kp7uF2eE0gXkZY_n3r-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="520" y="330" as="sourcePoint" />
+            <mxPoint x="350" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B7Kp7uF2eE0gXkZY_n3r-8" edge="1" parent="1" source="B7Kp7uF2eE0gXkZY_n3r-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="39150e848f15840c-4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="B7Kp7uF2eE0gXkZY_n3r-9" connectable="0" parent="B7Kp7uF2eE0gXkZY_n3r-8" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Loads&lt;br&gt;implementation&lt;br&gt;of sbApi" vertex="1">
+          <mxGeometry relative="1" x="-0.26" y="-1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B7Kp7uF2eE0gXkZY_n3r-7" parent="1" style="shape=component;align=left;spacingLeft=36;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;html=1;" value="sbApiLoader" vertex="1">
+          <mxGeometry height="60" width="200" x="260" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="B7Kp7uF2eE0gXkZY_n3r-10" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;rounded=0;" value="&lt;b&gt;&lt;u&gt;Befehls-Beispiel:&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;PATH: /player/create&lt;br&gt;&lt;br&gt;{&lt;br&gt;&amp;nbsp; &amp;nbsp; id: null,&lt;br&gt;&amp;nbsp; &amp;nbsp; name: &quot;myName&quot;,&lt;br&gt;&amp;nbsp; &amp;nbsp; ...&lt;br&gt;}" vertex="1">
+          <mxGeometry height="110" width="180" x="680" y="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
