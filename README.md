@@ -42,13 +42,13 @@ Use this scoreboard to display your live game scores.
     * Start effects and animations, when specific states are reached.
 
 
-## Concepts
+## Concept
 
 ### Data Hierarchy
 
-The projects data hierarchie is
+The projects data hierarchie is flat by design. It should be as simple as possible, because complexity is a killer.
 
-```Game > League > Tournament > Match > Round```
+```Game > Room > Player ``` are used, to represent the different rooms.
 
 
 #### Game
