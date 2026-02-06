@@ -48,7 +48,7 @@ Use this scoreboard to display your live game scores.
 
 The projects data hierarchie is flat by design. It should be as simple as possible, because complexity is a killer.
 
-```Game > Room > Player ``` are used, to represent the different rooms.
+```Game > Room > Player ```
 
 
 #### Game
