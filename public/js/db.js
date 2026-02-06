@@ -31,12 +31,11 @@ export default class db {
 
                 const gameStore = db.createObjectStore('game', { keyPath: 'id'});
                 gameStore.createIndex('name', ['name'], {unique: false });
-                //gameStore.put({ id: '1', name: "Cornhole" });
+                gameStore.put({ id: '1c605e32589c4c83b742d2d573c37b2f', name: "Cornhole" });
 
                 const roomStore = db.createObjectStore('room', { keyPath: 'id'});
                 roomStore.createIndex('name', ['name'], {unique: false });
                 roomStore.createIndex('gameId', ['gameId'], {unique: false });
-                //roomStore.put({ id: '1', gameId: '1', name: "New Room" });
 
                 const playerStore = db.createObjectStore('player', { keyPath: 'id' });
                 playerStore.createIndex('name', ['name'], {unique: false });

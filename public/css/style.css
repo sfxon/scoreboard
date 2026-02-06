@@ -245,3 +245,15 @@ h2.modal-title {
         text-shadow: -5px -5px 0 #00d4ff, -10px -10px 0 #ff005e;
     }
 }
+
+#sb-index-scoreboard-list {
+    margin-top: 1rem;
+}
+
+.sb-index-room {
+    margin-bottom: 1rem;
+}
+
+.sb-index-room-game-container {
+    margin-bottom: 1rem;
+}

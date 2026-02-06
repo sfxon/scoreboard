@@ -40,9 +40,9 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="sb-index-create-room-game-type" class="form-label">Game Type</label>
-                        <select id="sb-index-create-room-game-type" class="form-select">
-                            <option value="1" selected="selected">Cornhole</option>
+                        <label for="sb-index-create-room-game-id" class="form-label">Game Type</label>
+                        <select id="sb-index-create-room-game-id" class="form-select">
+                            <option value="1c605e32589c4c83b742d2d573c37b2f" selected="selected">Cornhole</option>
                         </select>
                     </div>
                 </div>
@@ -52,6 +52,21 @@
             </div>
         </div>
     </div>
+
+    <div id="sb-index-room-template" style="display: none;">
+        <div class="col col-md-3 sb-index-room">
+            <div class="card">
+                <div class="card-header">
+                    <div class="sb-index-room-title">Room title</div>
+                </div>
+                <div class="card-body">
+                    <div class="sb-index-room-game-container"><span>Game: </span><span class="sb-index-room-game"></span></div>
+                    <a href="#" class="sb-index-room-button-link"><button type="submit" class="btn btn-secondary">Show Scoreboard</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script type="module">
