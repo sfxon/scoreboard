@@ -202,16 +202,17 @@
         </div>
     </div>
 
-    <script src="js/db.js" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
-    <script src="js/index.js"></script>
 
     <script type="module">
         import sbAdmin from './js/admin.js';
         import sbScoreboard from './js/scoreboard-room.js';
 
-        var scoreboard = new sbScoreboard();
-        var admin = new sbAdmin(scoreboard);
+        document.addEventListener('DOMContentLoaded', async() => {
+            var scoreboard = new sbScoreboard();
+            await scoreboard.load();
+            var admin = new sbAdmin(scoreboard);
+        });
     </script>
 </body>
 </html>

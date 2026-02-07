@@ -19,15 +19,12 @@ export default class sbAdmin {
      * Has to be called, so that the admin functionality is working.
      */
     init() {
-        // Hook everything togehter, when the DOM loading is finished.
-        document.addEventListener('DOMContentLoaded', () => {
-            // Init room values in editor and website.
-            this.initModalShownHiddenEventHandlers();
-            this.initModal();
-            this.sbModal.show();
-            this.sbAdminGeneral = new sbAdminGeneral(this.sbModal, this.scoreboard);
-            this.sbAdminPlayers = new sbAdminPlayers(this.sbModal, this.scoreboard);
-        });
+        // Init room values in editor and website.
+        this.initModalShownHiddenEventHandlers();
+        this.initModal();
+        this.sbModal.show();
+        this.sbAdminGeneral = new sbAdminGeneral(this.sbModal, this.scoreboard);
+        this.sbAdminPlayers = new sbAdminPlayers(this.sbModal, this.scoreboard);
     }
 
     /**

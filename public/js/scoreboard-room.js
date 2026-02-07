@@ -1,6 +1,7 @@
+import sbApiLoader from './scoreboard-api-loader.js';
+import sbIncrementAnimator from './scoreboardIncrementAnimator.js';
 import sbRoom from './room.js';
 import sbTimer from './timer.js';
-import sbIncrementAnimator from './scoreboardIncrementAnimator.js';
 
 /**
  * This class represents the scoreboard display and handles it's functionality.
@@ -8,19 +9,19 @@ import sbIncrementAnimator from './scoreboardIncrementAnimator.js';
 export default class sbScoreboard {
     constructor(
     ) {
+        this.api = null;
         this.gameTitleEl = null;
         this.gameTitleId = 'sb-title';
         this.gameSubtitleEl = null;
         this.gameSubtitleId = 'sb-subtitle';
         this.keyboardShortcutsActivated = true;
         this.myIncrementAnimator = new sbIncrementAnimator();
-        this.myRoom = new sbRoom();
+        this.roomId = null;
         this.timer = new sbTimer();
-        this.init();
     }
 
     activatePlayer(playerNumber, playerId) {
-        this.myRoom.setPlayer(playerNumber, playerId);
+        this.myRoom.setActivePlayer(playerNumber, playerId);
         this.updatePlayerViews();
     }
 
@@ -124,12 +125,14 @@ export default class sbScoreboard {
     init() {
         this.gameTitleEl = document.getElementById(this.gameTitleId);
         this.gameSubtitleEl = document.getElementById(this.gameSubtitleId);
-
-        document.addEventListener('DOMContentLoaded', () => {
-            this.updateView();
-        });
-
+        this.updateView();
         this.initKeyboardShortcuts();
+    }
+
+    async initApi() {
+        let apiLoader = new sbApiLoader('sbLocalApiEndpoint');
+        await apiLoader.loadImplementation();
+        this.api = apiLoader.getApi();
     }
 
     initKeyboardShortcuts() {
@@ -194,13 +197,58 @@ export default class sbScoreboard {
         });
     }
 
+    async load() {
+        // Get the room id from the url.
+        await this.initApi();
+        const params = new URLSearchParams(window.location.search);
+        this.roomId = params.get("id");
+        this.room = await this.loadRoom(this.roomId);
+
+        // Load game
+        let game = await this.loadGameById(this.room.gameId);
+        
+        // Load players
+        let players = await this.loadPlayersByRoomId(this.room.id);
+
+        this.myRoom = new sbRoom(
+            this.room.name,
+            this.room.subtitle,
+            game.name,
+            players,
+            [] // this.room.activePlayerIds []     // @TODO: Have to load the last activePlayers in this room.
+        );
+
+        this.init();
+    }
+
+    async loadGameById(gameId) {
+        let gameData = await this.api.post('game/load', { id: gameId });
+        return gameData;
+    }
+
+    
+    async loadPlayersByRoomId(roomId) {
+        let players = await this.api.post('players/loadByRoomId', { roomId: roomId });
+
+        if(!Array.isArray(players)) {
+            players = [];
+        }
+
+        return players;
+    }
+
+    async loadRoom(roomId) {
+        let roomData = await this.api.post('room/load', { id: roomId });
+        return roomData;
+    }
+
     updatePlayerValue(playerId, methodName, value) {
         let player = this.getPlayerById(playerId);
         player[methodName](value);
     }
 
     updatePlayerViews() {
-        for(let i = 1, j = (this.myRoom.activePlayerIds.length); i < j; i++) {
+        for(let i = 0, j = (this.myRoom.activePlayerIds.length); i < j; i++) {
             let activePlayerEntry = this.myRoom.activePlayerIds[i];
             let playerNumber = activePlayerEntry['playerNumber'];
             let playerId = activePlayerEntry['playerId'];
