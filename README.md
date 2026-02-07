@@ -41,6 +41,9 @@ Use this scoreboard to display your live game scores.
     * Learn more about state machines, like the ones, that are for example used overall the nes game logic.
     * Start effects and animations, when specific states are reached.
 
+  * Add "Loosing points" animations.
+    * Currently, only animations are shown, when the player earns points. Additionally, we could add animations, whenever the value is negative with special animations for that.
+
 
 ## Concept
 
