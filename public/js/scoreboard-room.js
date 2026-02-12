@@ -10,10 +10,12 @@ export default class sbScoreboard {
     constructor(
     ) {
         this.api = null;
-        this.gameTitleEl = null;
-        this.gameTitleId = 'sb-title';
-        this.gameSubtitleEl = null;
-        this.gameSubtitleId = 'sb-subtitle';
+        //this.gameNameEl = null;
+        //this.gameNameId = 'sb-title';
+        this.roomNameEl = null;
+        this.roomNameId = 'sb-room-name';
+        this.roomSubtitleEl = null;
+        this.roomSubtitleId = 'sb-subtitle';
         this.keyboardShortcutsActivated = true;
         this.myIncrementAnimator = new sbIncrementAnimator();
         this.roomId = null;
@@ -123,8 +125,8 @@ export default class sbScoreboard {
      * Initialise html elements.
      */
     init() {
-        this.gameTitleEl = document.getElementById(this.gameTitleId);
-        this.gameSubtitleEl = document.getElementById(this.gameSubtitleId);
+        this.roomNameEl = document.getElementById(this.roomNameId);
+        this.roomSubtitleEl = document.getElementById(this.roomSubtitleId);
         this.updateView();
         this.initKeyboardShortcuts();
     }
@@ -276,7 +278,7 @@ export default class sbScoreboard {
      * Updates the display.
      */
     updateView() {
-        this.gameTitleEl.innerHTML = this.myRoom.gameTitle;
-        this.gameSubtitleEl.innerHTML = this.myRoom.gameSubtitle;
+        this.roomNameEl.innerHTML = this.myRoom.roomName;
+        this.roomSubtitleEl.innerHTML = this.myRoom.roomSubtitle;
     }
 }

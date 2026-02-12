@@ -82,7 +82,7 @@ export default class sbScoreboardIndex {
                 let newRoomContainer = templateObj.content.firstElementChild.cloneNode(true);
 
                 // Set room name.
-                let roomNameEl = newRoomContainer.querySelector('.sb-index-room-title');
+                let roomNameEl = newRoomContainer.querySelector('.sb-index-room-name');
                 roomNameEl.textContent = room.name;
 
                 // TODO: Set game name.
