@@ -47,7 +47,11 @@ Use this scoreboard to display your live game scores.
 
 ## Concept
 
-### Data Hierarchy
+### Database 
+
+![Diagram of the database](docs/database-diagram.drawio.svg)
+
+#### Data Hierarchy
 
 The projects data hierarchie is flat by design. It should be as simple as possible, because complexity is a killer.
 

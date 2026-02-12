@@ -15,8 +15,6 @@
 // Continue integration here:
     // API-Integration
         // - Define entities and create some diagrams of them for later review.
-            // * Add max points per round
-            // * Add max rounds
             // * Rename some of the entities. The ones that should be reviewed are marked with @TODO.
         // - Add index db as a browser database to save the state by adding a custom api - for now it uses the browser database - so the browser code for the database will have an endpoint code-layer, as well as a client code-layer.
         // - Build the internal API.
