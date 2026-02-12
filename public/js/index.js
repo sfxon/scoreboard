@@ -10,11 +10,11 @@
     // ✓ Add input for points up and down for players
     // ✓ See, if the structure is useful.
     // ✓ Add animation, whenever player points have been added (delayed after an input, so if you add 3 points one after each other, wait for 5 seconds and then display the animation.)
-
+    // ✓ Define entities and create some diagrams of them for later review.
 
 // Continue integration here:
     // API-Integration
-        // - Define entities and create some diagrams of them for later review.
+        
             // * Rename some of the entities. The ones that should be reviewed are marked with @TODO.
         // - Add index db as a browser database to save the state by adding a custom api - for now it uses the browser database - so the browser code for the database will have an endpoint code-layer, as well as a client code-layer.
         // - Build the internal API.

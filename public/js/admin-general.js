@@ -3,12 +3,12 @@ export default class sbAdminGeneral {
      * @param {*} scoreboard 
      */
     constructor(sbModal, scoreboard) {
-        this.roomTitleInputEl = null;
-        this.roomTitleInputId = 'sb-room-title-input';
-        this.gameTitleInputEl = null;
-        this.gameTitleInputId = 'sb-game-title-input';
-        this.gameSubtitleInputEl = null;
-        this.gameSubtitleInputId = 'sb-game-subtitle-input';
+        this.gameNameInputEl = null;
+        this.gameNameInputId = 'sb-game-name-input';
+        this.roomNameInputEl = null;
+        this.roomNameInputId = 'sb-room-name-input';
+        this.roomSubtitleInputEl = null;
+        this.roomSubtitleInputId = 'sb-room-subtitle-input';
         this.sbModal = sbModal;
         this.scoreboard = scoreboard;
 
@@ -58,20 +58,20 @@ export default class sbAdminGeneral {
      */
     initGeneralInputFields() {
         // Get the input elements from the document.
-        this.roomTitleInputEl = document.getElementById(this.roomTitleInputId);
-        this.gameTitleInputEl = document.getElementById(this.gameTitleInputId);
-        this.gameSubtitleInputEl = document.getElementById(this.gameSubtitleInputId);
+        this.gameNameInputEl = document.getElementById(this.gameNameInputId);
+        this.roomNameInputEl = document.getElementById(this.roomNameInputId);
+        this.roomSubtitleInputEl = document.getElementById(this.roomSubtitleInputId);
 
         // Initially value of room variables in input fields in general tab.
         let room = this.scoreboard.getRoom();
-        this.roomTitleInputEl.value = room.roomTitle;
-        this.gameTitleInputEl.value = room.gameTitle;
-        this.gameSubtitleInputEl.value = room.gameSubtitle;
+        this.gameNameInputEl.value = room.gameName;
+        this.roomNameInputEl.value = room.roomName;
+        this.roomSubtitleInputEl.value = room.roomSubtitle;
 
         // Init the event handlers.
-        this.initGeneralInputField(this.roomTitleInputEl, 'roomTitle');
-        this.initGeneralInputField(this.gameTitleInputEl, 'gameTitle');
-        this.initGeneralInputField(this.gameSubtitleInputEl, 'gameSubtitle');
+        this.initGeneralInputField(this.gameNameInputEl, 'gameName');
+        this.initGeneralInputField(this.roomNameInputEl, 'roomName');
+        this.initGeneralInputField(this.roomSubtitleInputEl, 'roomSubtitle');
     }
 
     /**
