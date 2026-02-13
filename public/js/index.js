@@ -19,11 +19,12 @@
         // ✓ x. Load room when page is loaded.
         // ✓ 2. Room name bei Änderung speichern.
         // ✓ 3. Subtitle bei Änderung speichern.
+        // ✓ 4. activatedPlayers speichern.
 
 // Continue integration here:
 
     // Link admin functions to the new database and save data directly after each change by usage of the API.
-        // 4. activatedPlayers speichern.
+        
         // 5. timerActive speichern.
         // 6. timerPerRound speichern.
         // 7. roundTimeLeft speichern.
@@ -34,6 +35,9 @@
             // a) points updaten
             // b) lifetimePoints updaten.
             // c) roundsWon updaten.
+
+        // 11. Player laden -> auch die aktiven in der richtigen Reihenfolge. Sollte theoretisch schon funktionieren.
+        // 11. Player laden -> sicherstellen, dass es auch ohne Admin-Interface sauber lädt. Das Scoreboard soll ja auch ohne Admin die korrekten Werte anzeigen.
 
     // Link frontend function to the new database and save data directly after each change by usage of the API.
         // See above.

@@ -71,17 +71,50 @@ export default class sbRoom {
 
     // This is used from class internal and external calls. Do not remove it.
     setActivePlayer(playerNumber, playerId) {
+        // Set an entry to null, if it has the same player id.
         for(let i = 0, j = this.activePlayerIds.length; i < j; i++) {
-            if(this.activePlayerIds.playerNumber === playerNumber) {
-                this.activePlayerIds.playerId = playerId;
+            if(this.activePlayerIds[i].playerId === playerId) {
+                this.activePlayerIds[i].playerId = null;
+                break;
+            }
+        }
+
+        // Set the player with a specific number to the playerId, if one the number exists.
+        for(let i = 0, j = this.activePlayerIds.length; i < j; i++) {
+            if(this.activePlayerIds[i].playerNumber === playerNumber) {
+                this.activePlayerIds[i].playerId = playerId;
                 return;
             }
         }
 
-        // If it could not be set, the playerNumber was not set yet. Set it manually.
+        // If the playerNumber was not set yet, add a new one.
         this.activePlayerIds.push({
             playerNumber: playerNumber,
             playerId: playerId
         });
+    }
+
+    // Returns a player object or null, if the player with this number was not found.
+    getActivePlayer(playerNumber) {
+        let playerId = null;
+        
+        for(let i = 0, j = this.activePlayerIds.length; i < j; i++) {
+            if(this.activePlayerIds[i].playerNumber === playerNumber) {
+                playerId = this.activePlayerIds[i].playerId;
+                break;
+            }
+        }
+
+        if(playerId === null) {
+            return null;
+        }
+
+        for(let player of this.players) {
+            if(player.id === playerId) {
+                return player;
+            }
+        }
+
+        return null;
     }
 }

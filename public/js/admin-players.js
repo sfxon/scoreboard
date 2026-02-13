@@ -20,8 +20,17 @@ export default class sbAdminPlayers {
         this.initEditorWithPlayers(this.scoreboard.getRoom().players);
         this.initAddPlayerBtnHandler();
 
-        this.activatePlayer(1, this.scoreboard.getRoom().players[0].id);
-        this.activatePlayer(2, this.scoreboard.getRoom().players[1].id);
+        // This must be different. We have to try to get the active player ids first.
+        let player1 = this.scoreboard.getRoom().getActivePlayer(1);
+        let player2 = this.scoreboard.getRoom().getActivePlayer(2);
+
+        if(player1 !== null && player2 !== null) {
+            this.activatePlayer(1, player1.id);
+            this.activatePlayer(2, player2.id);
+        } else {
+            this.activatePlayer(1, this.scoreboard.getRoom().players[0].id);
+            this.activatePlayer(2, this.scoreboard.getRoom().players[1].id);
+        }
     }
 
     activatePlayer(playerNumber, playerId) {
@@ -135,6 +144,7 @@ export default class sbAdminPlayers {
 
         btn.addEventListener('click', (event) => {
             this.activatePlayer(playerNumber, playerContainer.getAttribute('data-attr-player-id'));
+            this.scoreboard.saveActivePlayers();
         });
     }
 

@@ -1,5 +1,6 @@
 import sbApiLoader from './scoreboard-api-loader.js';
 import sbIncrementAnimator from './scoreboardIncrementAnimator.js';
+import sbPlayer from './player.js';
 import sbRoom from './room.js';
 import sbTimer from './timer.js';
 
@@ -10,8 +11,7 @@ export default class sbScoreboard {
     constructor(
     ) {
         this.api = null;
-        //this.gameNameEl = null;
-        //this.gameNameId = 'sb-title';
+        this.myRoom = null;
         this.roomNameEl = null;
         this.roomNameId = 'sb-room-name';
         this.roomSubtitleEl = null;
@@ -218,7 +218,7 @@ export default class sbScoreboard {
             this.room.subtitle,
             game.id,
             players,
-            [] // this.room.activePlayerIds []     // @TODO: Have to load the last activePlayers in this room.
+            this.room.activePlayerIds
         );
 
         this.init();
@@ -253,9 +253,21 @@ export default class sbScoreboard {
     updatePlayerViews() {
         for(let i = 0, j = (this.myRoom.activePlayerIds.length); i < j; i++) {
             let activePlayerEntry = this.myRoom.activePlayerIds[i];
+
+            console.log('entry: ', activePlayerEntry);
+
             let playerNumber = activePlayerEntry['playerNumber'];
             let playerId = activePlayerEntry['playerId'];
-            let player = this.getPlayerById(playerId);
+            let player = null;
+
+            if(playerId !== null) {
+                player = this.getPlayerById(playerId);
+            }
+
+            // Thats designed as this on purpose, since an active player could be set, but the player not be loaded yet.
+            if(player === null) {
+                player = new sbPlayer(null, '---', 0, 0, 0, 0);
+            }
 
             // Set name.
             let domEl = document.querySelector('#sb-player-' + playerNumber + ' .name');
@@ -281,5 +293,12 @@ export default class sbScoreboard {
     updateView() {
         this.roomNameEl.innerHTML = this.myRoom.name;
         this.roomSubtitleEl.innerHTML = this.myRoom.subtitle;
+    }
+
+    saveActivePlayers() {
+        let data = {};
+        data['id'] = this.myRoom.id;
+        data['activePlayerIds'] = this.myRoom.activePlayerIds;
+        this.api.post('room/update', data);
     }
 }
