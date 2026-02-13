@@ -9,6 +9,8 @@ export default class sbAdminGeneral {
         this.roomSubtitleInputId = 'sb-room-subtitle-input';
         this.sbModal = sbModal;
         this.scoreboard = scoreboard;
+        this.timerActiveEl = null;
+        this.timerActiveId = 'sb-room-timer-active';
 
         // This requires that all DOM Contents are already fired.
         // The class that instantiates this, has to take care of this.
@@ -66,6 +68,7 @@ export default class sbAdminGeneral {
     initGeneralInputFields() {
         this.roomNameInputEl = document.getElementById(this.roomNameInputId);
         this.roomSubtitleInputEl = document.getElementById(this.roomSubtitleInputId);
+        this.timerActiveEl = document.getElementById(this.timerActiveId);
 
         // Initially value of room variables in input fields in general tab.
         let room = this.scoreboard.getRoom();
@@ -75,6 +78,7 @@ export default class sbAdminGeneral {
         // Init the event handlers.
         this.initGeneralInputField('room', room.id, 'name', this.roomNameInputEl);
         this.initGeneralInputField('room', room.id, 'subtitle', this.roomSubtitleInputEl);
+        this.initGeneralSwitchField('room', room.id, 'timerActive', this.timerActiveEl);
     }
 
     /**
@@ -91,6 +95,20 @@ export default class sbAdminGeneral {
         inputFieldEl.addEventListener('keyup', (event) => {
             event.stopPropagation();
             this.generalInputElementChanged(entityName, id, updatedRoomVariable, event.target.value);
+        });
+    }
+
+    initGeneralSwitchField(entityName, id, updatedRoomVariable, inputFieldEl) {
+        inputFieldEl.addEventListener('change', (event) => {
+            event.stopPropagation();
+            let bState = event.target.checked;
+            let iState = 0;
+
+            if(bState === true) {
+                iState = 1;
+            }
+
+            this.generalInputElementChanged(entityName, id, updatedRoomVariable, iState);
         });
     }
 
