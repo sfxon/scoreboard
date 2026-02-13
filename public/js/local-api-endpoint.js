@@ -21,6 +21,8 @@ export default class sbLocalApiEndpoint extends sbApi {
                 return this.roomCreate(parameters);
             case 'room/load':
                 return this.roomLoad(parameters);
+            case 'room/update':
+                return this.roomUpdate(parameters);
             case 'players/loadByRoomId':
                 return this.playersLoadByRoomId(parameters);
         }
@@ -92,6 +94,48 @@ export default class sbLocalApiEndpoint extends sbApi {
 
             transaction.oncomplete = () => {
                 resolve(id);
+            };
+
+            transaction.onerror = () => {
+                reject(transaction.error);
+            };
+        });
+    }
+
+    roomUpdate(parameters) {
+        if(!parameters.hasOwnProperty('id')) {
+            throw new Error('No id set.');
+        }
+
+        return new Promise((resolve, reject) => {
+            const transaction = this.db.transaction('room', 'readwrite');
+            const objectStore = transaction.objectStore('room');
+
+            // Load data from database, because we want to keep the fields, that where not included in the post.
+            const request = objectStore.get(parameters.id);
+
+            request.onsuccess = (event) => {
+                const data = event.target.result;
+
+                if (!data) {
+                    reject('Room not found');
+                    return;
+                }
+
+                for(let key in parameters) {
+                    // @TODO: We could optimize this part of the code, by adding entity definitions.
+                    // Then we could always check, if fields really exist, and only save the values, if the given field exists in the entity.
+                    data[key] = parameters[key];
+                }
+
+                objectStore.put(data);
+            };
+
+            // Automatically an update, when the given id is already existent.
+            
+
+            transaction.oncomplete = () => {
+                resolve(parameters.id);
             };
 
             transaction.onerror = () => {

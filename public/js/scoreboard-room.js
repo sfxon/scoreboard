@@ -145,7 +145,7 @@ export default class sbScoreboard {
 
             // Start / Pause the game.
             if(event.key === this.myRoom.keyboardShortcuts['startPause']) {
-                console.log('TODO: Implement start/stop timer.');
+                console.log('@TODO: Implement start/stop timer.');
             }
 
             // Points added or removed per player.
@@ -213,9 +213,10 @@ export default class sbScoreboard {
         let players = await this.loadPlayersByRoomId(this.room.id);
 
         this.myRoom = new sbRoom(
+            this.roomId,
             this.room.name,
             this.room.subtitle,
-            game.name,
+            game.id,
             players,
             [] // this.room.activePlayerIds []     // @TODO: Have to load the last activePlayers in this room.
         );
@@ -278,7 +279,7 @@ export default class sbScoreboard {
      * Updates the display.
      */
     updateView() {
-        this.roomNameEl.innerHTML = this.myRoom.roomName;
-        this.roomSubtitleEl.innerHTML = this.myRoom.roomSubtitle;
+        this.roomNameEl.innerHTML = this.myRoom.name;
+        this.roomSubtitleEl.innerHTML = this.myRoom.subtitle;
     }
 }

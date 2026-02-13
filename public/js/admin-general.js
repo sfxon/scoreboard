@@ -3,8 +3,6 @@ export default class sbAdminGeneral {
      * @param {*} scoreboard 
      */
     constructor(sbModal, scoreboard) {
-        this.gameNameInputEl = null;
-        this.gameNameInputId = 'sb-game-name-input';
         this.roomNameInputEl = null;
         this.roomNameInputId = 'sb-room-name-input';
         this.roomSubtitleInputEl = null;
@@ -23,9 +21,18 @@ export default class sbAdminGeneral {
     /**
      * When an inputElement from the general tab has changed it's value.
      */
-    generalInputElementChanged(newValue, updatedRoomVariable) {
-        this.scoreboard.getRoom()[updatedRoomVariable] = newValue;
+    generalInputElementChanged(entityName, id, updatedRoomVariable, value) {
+        // Update local object.
+        this.scoreboard.getRoom()[updatedRoomVariable] = value;
+
+        // Update the view.
         this.scoreboard.updateView();
+
+        // Update object in database.
+        let data = {};
+        data['id'] = id;
+        data[updatedRoomVariable] = value;
+        this.scoreboard.api.post(entityName + '/update', data);
     }
 
     initButtonEventHandlers() {
@@ -57,21 +64,17 @@ export default class sbAdminGeneral {
      * Initialises the input fields for the "general tab" of the admin dialog.
      */
     initGeneralInputFields() {
-        // Get the input elements from the document.
-        this.gameNameInputEl = document.getElementById(this.gameNameInputId);
         this.roomNameInputEl = document.getElementById(this.roomNameInputId);
         this.roomSubtitleInputEl = document.getElementById(this.roomSubtitleInputId);
 
         // Initially value of room variables in input fields in general tab.
         let room = this.scoreboard.getRoom();
-        this.gameNameInputEl.value = room.gameName;
-        this.roomNameInputEl.value = room.roomName;
-        this.roomSubtitleInputEl.value = room.roomSubtitle;
+        this.roomNameInputEl.value = room.name;
+        this.roomSubtitleInputEl.value = room.subtitle;
 
         // Init the event handlers.
-        this.initGeneralInputField(this.gameNameInputEl, 'gameName');
-        this.initGeneralInputField(this.roomNameInputEl, 'roomName');
-        this.initGeneralInputField(this.roomSubtitleInputEl, 'roomSubtitle');
+        this.initGeneralInputField('room', room.id, 'name', this.roomNameInputEl);
+        this.initGeneralInputField('room', room.id, 'subtitle', this.roomSubtitleInputEl);
     }
 
     /**
@@ -79,15 +82,15 @@ export default class sbAdminGeneral {
      * @param {*} inputFieldEl 
      * @param {*} updatedRoomVariable 
      */
-    initGeneralInputField(inputFieldEl, updatedRoomVariable) {
+    initGeneralInputField(entityName, id, updatedRoomVariable, inputFieldEl) {
         inputFieldEl.addEventListener('change', (event) => {
             event.stopPropagation();
-            this.generalInputElementChanged(event.target.value, updatedRoomVariable);
+            this.generalInputElementChanged(entityName, id, updatedRoomVariable, event.target.value);
         });
 
         inputFieldEl.addEventListener('keyup', (event) => {
             event.stopPropagation();
-            this.generalInputElementChanged(event.target.value, updatedRoomVariable);
+            this.generalInputElementChanged(entityName, id, updatedRoomVariable, event.target.value);
         });
     }
 

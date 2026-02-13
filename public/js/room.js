@@ -2,16 +2,18 @@ import sbPlayer from './player.js';
 
 export default class sbRoom {
     constructor(
-        roomName = "Room 1", // @TODO: Refactor: rename this to name.
-        roomSubtitle = "My Subtitle", // @TODO: Refactor: rename this to subtitle.
-        gameName = "My Game", // @TODO: Refactor: rename this to gameName.
+        id = null,
+        name = "Room 1",
+        subtitle = "My Subtitle",
+        gameId = null,
         playersData = [],
         activePlayerIds = [] // Array of { playerNumber: int, playerId: string }
     ) {
+        this.id = id;
         this.activePlayerIds = activePlayerIds;
-        this.gameName = gameName;
-        this.roomName = roomName;
-        this.roomSubtitle = roomSubtitle;
+        this.gameId = gameId;
+        this.name = name;
+        this.subtitle = subtitle;
         this.players = [];
         this.playerCount = 2;
 
