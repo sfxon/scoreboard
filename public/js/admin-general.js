@@ -7,6 +7,8 @@ export default class sbAdminGeneral {
         this.roomNameInputId = 'sb-room-name-input';
         this.roomSubtitleInputEl = null;
         this.roomSubtitleInputId = 'sb-room-subtitle-input';
+        this.roundTimeInputEl = null;
+        this.roundTimeInputId = 'sb-game-round-time-input';
         this.sbModal = sbModal;
         this.scoreboard = scoreboard;
         this.timerActiveEl = null;
@@ -69,16 +71,26 @@ export default class sbAdminGeneral {
         this.roomNameInputEl = document.getElementById(this.roomNameInputId);
         this.roomSubtitleInputEl = document.getElementById(this.roomSubtitleInputId);
         this.timerActiveEl = document.getElementById(this.timerActiveId);
+        this.roundTimeInputEl = document.getElementById(this.roundTimeInputId);
 
         // Initially value of room variables in input fields in general tab.
         let room = this.scoreboard.getRoom();
         this.roomNameInputEl.value = room.name;
         this.roomSubtitleInputEl.value = room.subtitle;
 
+        if(room.timerActive === 1) {
+            this.timerActiveEl.checked = 'checked';
+        } else {
+            this.timerActiveEl.checked = false;
+        }
+
+        this.roundTimeInputEl.value = room.roundTime;
+
         // Init the event handlers.
         this.initGeneralInputField('room', room.id, 'name', this.roomNameInputEl);
         this.initGeneralInputField('room', room.id, 'subtitle', this.roomSubtitleInputEl);
         this.initGeneralSwitchField('room', room.id, 'timerActive', this.timerActiveEl);
+        this.initRoundTimeInputField('room', room.id, 'roundTime', this.roundTimeInputEl);
     }
 
     /**
@@ -112,6 +124,31 @@ export default class sbAdminGeneral {
         });
     }
 
+    initGeneralInputField(entityName, id, updatedRoomVariable, inputFieldEl) {
+        inputFieldEl.addEventListener('change', (event) => {
+            event.stopPropagation();
+            this.generalInputElementChanged(entityName, id, updatedRoomVariable, event.target.value);
+        });
+
+        inputFieldEl.addEventListener('keyup', (event) => {
+            event.stopPropagation();
+            this.generalInputElementChanged(entityName, id, updatedRoomVariable, event.target.value);
+        });
+    }
+
+    initRoundTimeInputField(entityName, id, updatedRoomVariable, inputFieldEl) {
+        inputFieldEl.addEventListener('change', (event) => {
+            event.stopPropagation();
+            this.roomTimeInputFieldChanged(inputFieldEl, entityName, id, updatedRoomVariable, event.target.value);
+        });
+
+        inputFieldEl.addEventListener('keyup', (event) => {
+            event.stopPropagation();
+            this.roomTimeInputFieldChanged(inputFieldEl, entityName, id, updatedRoomVariable, event.target.value);
+        });
+    }
+
+
     /**
      * Initialise keyboard input handler.
      * Shows or hides the modal dialog.
@@ -131,5 +168,32 @@ export default class sbAdminGeneral {
                 this.sbModal.show();
             }
         });
+    }
+
+    markFieldWithError(inputFieldEl) {
+        inputFieldEl.classList.add('is-invalid');
+    }
+
+    removeFieldErrorMarker(inputFieldEl) {
+        inputFieldEl.classList.remove('is-invalid');
+    }
+
+    roomTimeInputFieldChanged(inputFieldEl, entityName, id, updatedRoomVariable, value) {
+        value = value.trim();
+
+        // Regex:
+        // ^        → Begin-Marker of Regex
+        // \d+      → One or more numbers (Minutes).
+        // :        → Colon
+        // [0-5]\d  → Seconds from 00 to 59
+        // $        → End-Marker of Regex
+        let regex = /^\d+:[0-5]\d$/;
+
+        if(false === regex.test(value)) {
+            this.markFieldWithError(inputFieldEl);
+        } else {
+            this.removeFieldErrorMarker(inputFieldEl);
+            this.generalInputElementChanged(entityName, id, updatedRoomVariable, value);
+        }
     }
 }

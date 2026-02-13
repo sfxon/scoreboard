@@ -218,7 +218,9 @@ export default class sbScoreboard {
             this.room.subtitle,
             game.id,
             players,
-            this.room.activePlayerIds
+            this.room.activePlayerIds,
+            this.room.timerActive,
+            this.room.roundTime
         );
 
         this.init();
@@ -253,8 +255,6 @@ export default class sbScoreboard {
     updatePlayerViews() {
         for(let i = 0, j = (this.myRoom.activePlayerIds.length); i < j; i++) {
             let activePlayerEntry = this.myRoom.activePlayerIds[i];
-
-            console.log('entry: ', activePlayerEntry);
 
             let playerNumber = activePlayerEntry['playerNumber'];
             let playerId = activePlayerEntry['playerId'];

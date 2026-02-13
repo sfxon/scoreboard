@@ -7,15 +7,19 @@ export default class sbRoom {
         subtitle = "My Subtitle",
         gameId = null,
         playersData = [],
-        activePlayerIds = [] // Array of { playerNumber: int, playerId: string }
+        activePlayerIds = [], // Array of { playerNumber: int, playerId: string }
+        timerActive = true,
+        roundTime = '2:45',
     ) {
         this.id = id;
         this.activePlayerIds = activePlayerIds;
         this.gameId = gameId;
         this.name = name;
-        this.subtitle = subtitle;
         this.players = [];
         this.playerCount = 2;
+        this.roundTime = roundTime;
+        this.subtitle = subtitle;
+        this.timerActive = timerActive;
 
         this.keyboardShortcuts = {
             'startPause': 'Spacebar',

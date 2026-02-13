@@ -15,16 +15,16 @@
     // ✓ Add index db as a browser database to save the state by adding a custom api - for now it uses the browser database - so the browser code for the database will have an endpoint code-layer, as well as a client code-layer.
     // ✓ Build the internal API.
     // Link admin functions to the new database and save data directly after each change by usage of the API.
-        // ✓ 1. Game name Eingabefeld entfernen.
-        // ✓ x. Load room when page is loaded.
-        // ✓ 2. Room name bei Änderung speichern.
-        // ✓ 3. Subtitle bei Änderung speichern.
-        // ✓ 4. activatedPlayers speichern.
-        // ✓ 5. timerActive speichern.
+        // ✓ 1. Remove Game Name input field.
+        // ✓ x. Load Room when Page is loaded.
+        // ✓ 2. Save Room name.
+        // ✓ 3. Save Subtitle.
+        // ✓ 4. Save activatedPlayers.
+        // ✓ 5. Save timerActive.
+        // ✓ 6. Save sb-game-round-time-input -> roundTime
 
 // Continue integration here:
     // Link admin functions to the new database and save data directly after each change by usage of the API.
-        // 6. timerPerRound speichern.
         // 7. roundTimeLeft speichern.
         // 8. roundTimerStartetAt speichern.
         // 9. roundState speichern.

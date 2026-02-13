@@ -144,7 +144,10 @@
                             </div>
                             <div class="mb-3">
                                 <label for="sb-game-round-time-input">Round-Time</label>
-                                <input type="text" class="form-control" id="sb-game-round-time-input" placeholder="e.g. 5:00" value="">
+                                <div class="input-group has-validation">
+                                    <input type="text" class="form-control" id="sb-game-round-time-input" placeholder="e.g. 5:00" value="">
+                                    <div class="invalid-feedback">The format must be m:ss; e.g.: 22:54</div>
+                                </div>
                             </div>
                         </div>
 
