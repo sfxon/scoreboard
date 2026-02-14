@@ -9,6 +9,8 @@ export default class sbAdminGeneral {
         this.roomSubtitleInputId = 'sb-room-subtitle-input';
         this.roundTimeInputEl = null;
         this.roundTimeInputId = 'sb-game-round-time-input';
+        this.roundTimeLeftInputEl = null;
+        this.roundTimeLeftInputId = 'sb-game-round-time-left-input';
         this.sbModal = sbModal;
         this.scoreboard = scoreboard;
         this.timerActiveEl = null;
@@ -72,6 +74,7 @@ export default class sbAdminGeneral {
         this.roomSubtitleInputEl = document.getElementById(this.roomSubtitleInputId);
         this.timerActiveEl = document.getElementById(this.timerActiveId);
         this.roundTimeInputEl = document.getElementById(this.roundTimeInputId);
+        this.roundTimeLeftInputEl = document.getElementById(this.roundTimeLeftInputId);
 
         // Initially value of room variables in input fields in general tab.
         let room = this.scoreboard.getRoom();
@@ -85,12 +88,14 @@ export default class sbAdminGeneral {
         }
 
         this.roundTimeInputEl.value = room.roundTime;
+        this.roundTimeLeftInputEl.value = room.roundTimeLeft;
 
         // Init the event handlers.
         this.initGeneralInputField('room', room.id, 'name', this.roomNameInputEl);
         this.initGeneralInputField('room', room.id, 'subtitle', this.roomSubtitleInputEl);
         this.initGeneralSwitchField('room', room.id, 'timerActive', this.timerActiveEl);
         this.initRoundTimeInputField('room', room.id, 'roundTime', this.roundTimeInputEl);
+        this.initRoundTimeInputField('room', room.id, 'roundTimeLeft', this.roundTimeLeftInputEl);
     }
 
     /**

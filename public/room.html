@@ -111,8 +111,13 @@
                             <div id="sb-admin-round-options">
                                 <p><b>Round-Options:</b></p>
                                 <div class="mb-3">
-                                    <label for="sb-game-left-time">Time left</label>
-                                    <input type="text" class="form-control" id="sb-game-left-time" placeholder="Filled automatically when round is startet" value="">
+                                    <div class="mb-3">
+                                        <label for="sb-game-round-time-left-input">Round Time Left</label>
+                                        <div class="input-group has-validation">
+                                            <input type="text" class="form-control" id="sb-game-round-time-left-input" placeholder="e.g. 5:00" value="">
+                                            <div class="invalid-feedback">The format must be m:ss; e.g.: 22:54</div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">

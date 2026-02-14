@@ -220,7 +220,8 @@ export default class sbScoreboard {
             players,
             this.room.activePlayerIds,
             this.room.timerActive,
-            this.room.roundTime
+            this.room.roundTime,
+            this.room.roundTimeLeft,
         );
 
         this.init();

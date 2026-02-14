@@ -21,11 +21,11 @@
         // ✓ 3. Save Subtitle.
         // ✓ 4. Save activatedPlayers.
         // ✓ 5. Save timerActive.
-        // ✓ 6. Save sb-game-round-time-input -> roundTime
+        // ✓ 6. Save roundTime.
+        // ✓ 7. Save roundTimeLeft.
 
 // Continue integration here:
     // Link admin functions to the new database and save data directly after each change by usage of the API.
-        // 7. roundTimeLeft speichern.
         // 8. roundTimerStartetAt speichern.
         // 9. roundState speichern.
 

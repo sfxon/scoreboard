@@ -10,6 +10,7 @@ export default class sbRoom {
         activePlayerIds = [], // Array of { playerNumber: int, playerId: string }
         timerActive = true,
         roundTime = '2:45',
+        roundTimeLeft = '0:03'
     ) {
         this.id = id;
         this.activePlayerIds = activePlayerIds;
@@ -18,6 +19,7 @@ export default class sbRoom {
         this.players = [];
         this.playerCount = 2;
         this.roundTime = roundTime;
+        this.roundTimeLeft = roundTimeLeft;
         this.subtitle = subtitle;
         this.timerActive = timerActive;
 
