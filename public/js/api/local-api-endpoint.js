@@ -1,5 +1,5 @@
 import sbApi from './scoreboard-api.js';
-import indexedDb from './db.js';
+import indexedDb from './../db/db.js';
 
 export default class sbLocalApiEndpoint extends sbApi {
     constructor() {
@@ -23,6 +23,8 @@ export default class sbLocalApiEndpoint extends sbApi {
                 return this.roomLoad(parameters);
             case 'room/update':
                 return this.roomUpdate(parameters);
+            case 'player/upsert':
+                return this.playerUpsert(parameters);
             case 'players/loadByRoomId':
                 return this.playersLoadByRoomId(parameters);
         }
@@ -131,9 +133,6 @@ export default class sbLocalApiEndpoint extends sbApi {
                 objectStore.put(data);
             };
 
-            // Automatically an update, when the given id is already existent.
-            
-
             transaction.oncomplete = () => {
                 resolve(parameters.id);
             };
@@ -176,22 +175,56 @@ export default class sbLocalApiEndpoint extends sbApi {
         });
     }
 
+    playerUpsert(parameters) {
+        if(!parameters.hasOwnProperty('id')) {
+            parameters.id = generateUUID();
+        }
+
+        return new Promise((resolve, reject) => {
+            const transaction = this.db.transaction('player', 'readwrite');
+            const objectStore = transaction.objectStore('player');
+
+            // Load data from database, because we want to keep the fields, that where not included in the post.
+            const request = objectStore.get(parameters.id);
+
+            request.onsuccess = (event) => {
+                let data = event.target.result;
+
+                if (!data) {
+                    data = parameters;
+                } else {
+                    for(let key in parameters) {
+                        data[key] = parameters[key];
+                    }
+                }
+
+                objectStore.put(data);
+            };
+
+            transaction.oncomplete = () => {
+                resolve(parameters.id);
+            };
+
+            transaction.onerror = () => {
+                reject(transaction.error);
+            };
+        });
+    }
+
     playersLoadByRoomId(parameters) {
         return new Promise((resolve, reject) => {
             const transaction = this.db.transaction("player", "readonly");
             const objectStore = transaction.objectStore("player");
 
             if(!parameters.hasOwnProperty('roomId')) {
-                request.onerror = () => {
-                    reject('Missing roomId.');
-                };
+                reject('Missing roomId.');
             } else {
                 // Load list of all rooms.
                 const index = objectStore.index('roomId');
                 const request = index.getAll(IDBKeyRange.only(parameters.roomId));
 
                 request.onsuccess = () => {
-                    resolve(request.result);
+                    resolve(structuredClone(request.result));
                 };
 
                 request.onerror = () => {

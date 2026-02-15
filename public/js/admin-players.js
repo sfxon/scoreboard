@@ -20,7 +20,6 @@ export default class sbAdminPlayers {
         this.initEditorWithPlayers(this.scoreboard.getRoom().players);
         this.initAddPlayerBtnHandler();
 
-        // This must be different. We have to try to get the active player ids first.
         let player1 = this.scoreboard.getRoom().getActivePlayer(1);
         let player2 = this.scoreboard.getRoom().getActivePlayer(2);
 
@@ -95,8 +94,10 @@ export default class sbAdminPlayers {
     initAddPlayerBtnHandler() {
         // Add keyup event handler.
         this.addPlayerBtnEl = document.getElementById(this.addPlayerBtnId);
-        this.addPlayerBtnEl.addEventListener('click', (event) => {
-            let player = new sbPlayer(null, "", 0, 0, 0, 0);
+        this.addPlayerBtnEl.addEventListener('click', async (event) => {
+            let room = this.scoreboard.getRoom();
+            let player = new sbPlayer(null, "", room.id, 0, 0, 0, 0);
+            await this.scoreboard.savePlayer(player);
             this.scoreboard.addPlayer(player);
             this.addPlayerToEditor(player);
         });
@@ -148,9 +149,11 @@ export default class sbAdminPlayers {
         });
     }
 
-    inputFieldChangedHandler(domContainer, el, playerMethodName) {
+    async inputFieldChangedHandler(domContainer, el, playerMethodName) {
         let playerId = domContainer.getAttribute('data-attr-player-id');
         this.scoreboard.updatePlayerValue(playerId, playerMethodName, el.value);
+        let player = this.scoreboard.getPlayerById(playerId);
+        await this.scoreboard.savePlayer(player);
         this.scoreboard.updatePlayerViews();
     }
 }

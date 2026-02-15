@@ -1,4 +1,4 @@
-import sbApiLoader from './scoreboard-api-loader.js';
+import sbApiLoader from './api/scoreboard-api-loader.js';
 
 /**
  * This class represents the scoreboard display and handles it's functionality.

@@ -19,7 +19,7 @@ export default class db {
                 return;
             }
 
-            const request = this.indexedDb.open("ScoreboardDatabase", 1); // DBName, Version of Database.
+            const request = this.indexedDb.open("ScoreboardDatabase", 2); // DBName, Version of Database.
 
             request.onerror = (event) => {
                 reject(new Error('An error occurred with IndexedDB: ' + event));
@@ -30,20 +30,20 @@ export default class db {
                 const db = event.target.result; // Result of the open request.
 
                 const gameStore = db.createObjectStore('game', { keyPath: 'id'});
-                gameStore.createIndex('name', ['name'], {unique: false });
+                gameStore.createIndex('name', 'name', {unique: false });
                 gameStore.put({ id: '1c605e32589c4c83b742d2d573c37b2f', name: "Cornhole" });
 
                 const roomStore = db.createObjectStore('room', { keyPath: 'id'});
-                roomStore.createIndex('name', ['name'], {unique: false });
-                roomStore.createIndex('gameId', ['gameId'], {unique: false });
+                roomStore.createIndex('name', 'name', {unique: false });
+                roomStore.createIndex('gameId', 'gameId', {unique: false });
 
                 const playerStore = db.createObjectStore('player', { keyPath: 'id' });
-                playerStore.createIndex('name', ['name'], {unique: false });
-                playerStore.createIndex('roomId', ['roomId'], {unique: false});
-                playerStore.createIndex('points', ['points'], { unique: false });
-                playerStore.createIndex('lifetimePoints', ['lifetimePoints'], { unique: false });
-                playerStore.createIndex('roundsWon', ['roundsWon'], { unique: false }); 
-                playerStore.createIndex('lifetimeRoundsWon', ['lifetimeRoundsWon'], { unique: false });
+                playerStore.createIndex('name', 'name', {unique: false });
+                playerStore.createIndex('roomId', 'roomId', {unique: false});
+                playerStore.createIndex('points', 'points', { unique: false });
+                playerStore.createIndex('lifetimePoints', 'lifetimePoints', { unique: false });
+                playerStore.createIndex('roundsWon', 'roundsWon', { unique: false }); 
+                playerStore.createIndex('lifetimeRoundsWon', 'lifetimeRoundsWon', { unique: false });
             };
 
             request.onsuccess = (event) => {

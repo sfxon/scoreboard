@@ -27,8 +27,6 @@ export default class sbRoom {
         this.roundTimerStartedAt = roundTimerStartedAt;
         this.roundState = roundState;
 
-        console.log('roundState: ', this.roundState);
-
         this.keyboardShortcuts = {
             'startPause': 'Spacebar',
             'points': {
@@ -53,14 +51,14 @@ export default class sbRoom {
 
         for(let playerData of playersData) {
             playerAddCount++;
-            let player = new sbPlayer(playerData.id, playerData.name, playerData.points, playerData.lifetimePoints, playerData.roundsWon, playerData.lifetimeRoundsWon);
+            let player = new sbPlayer(playerData.id, playerData.name, id, playerData.points, playerData.lifetimePoints, playerData.roundsWon, playerData.lifetimeRoundsWon);
             this.players.push(player);
         }
 
         // If there are not enough players for this game yet, add some additional players.
         while(playerAddCount < this.playerCount) {
             playerAddCount++;
-            let player = new sbPlayer(null, 'Player ' + playerAddCount, 0, 0, 0, 0);
+            let player = new sbPlayer(null, 'Player ' + playerAddCount, id, 0, 0, 0, 0);
             this.players.push(player);
         }
 

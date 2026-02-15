@@ -1,4 +1,4 @@
-import sbApiLoader from './scoreboard-api-loader.js';
+import sbApiLoader from './api/scoreboard-api-loader.js';
 import sbIncrementAnimator from './scoreboardIncrementAnimator.js';
 import sbPlayer from './player.js';
 import sbRoom from './room.js';
@@ -234,12 +234,19 @@ export default class sbScoreboard {
         return gameData;
     }
 
-    
     async loadPlayersByRoomId(roomId) {
         let players = await this.api.post('players/loadByRoomId', { roomId: roomId });
 
         if(!Array.isArray(players)) {
             players = [];
+        }
+
+        if(players.length < 2) { // 2 = Minim player for a room.
+            for(let i = 1; i < 3; i++) {
+                let player = new sbPlayer(null, 'Player ' + i, roomId, 0, 0, 0, 0);
+                players.push(player);
+                await this.savePlayer(player);
+            }
         }
 
         return players;
@@ -269,7 +276,7 @@ export default class sbScoreboard {
 
             // Thats designed as this on purpose, since an active player could be set, but the player not be loaded yet.
             if(player === null) {
-                player = new sbPlayer(null, '---', 0, 0, 0, 0);
+                player = new sbPlayer(null, '---', this.myRoom.id, 0, 0, 0, 0);
             }
 
             // Set name.
@@ -303,5 +310,10 @@ export default class sbScoreboard {
         data['id'] = this.myRoom.id;
         data['activePlayerIds'] = this.myRoom.activePlayerIds;
         this.api.post('room/update', data);
+    }
+
+    async savePlayer(player) {
+        let playerDto = player.getDto();
+        await this.api.post('player/upsert', playerDto);
     }
 }
