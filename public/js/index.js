@@ -23,12 +23,11 @@
         // ✓ 5. Save timerActive.
         // ✓ 6. Save roundTime.
         // ✓ 7. Save roundTimeLeft.
+        // ✓ 8. roundTimerStartedAt speichern.
 
 // Continue integration here:
     // Link admin functions to the new database and save data directly after each change by usage of the API.
-        // 8. roundTimerStartedAt speichern.
         // 9. roundState speichern.
-
         // 10. Player speichern
             // a) points updaten
             // b) lifetimePoints updaten.
@@ -55,3 +54,6 @@
     //    - Technical documentation.
     // Make some promo videos while playing some live games of cornhole.
     // Add info-bar, that this is a local room, not an online hostet room.
+    // x. Restructure javascript code in folders. Add DTOs like playerDTO, roomDTO. These DTOs should be used as data-schema and for data-traversal.
+    //    Keep the sbRoom Objects, but change their "identity" more to Entity Objects (like they already are), 
+    //    so they can get and put data for the dto, and parse and prepare that data.

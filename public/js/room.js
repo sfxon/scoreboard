@@ -11,7 +11,8 @@ export default class sbRoom {
         timerActive = true,
         roundTime = '2:45',
         roundTimeLeft = '0:03',
-        roundTimerStartedAt = null
+        roundTimerStartedAt = null,
+        roundState = 0,
     ) {
         this.id = id;
         this.activePlayerIds = activePlayerIds;
@@ -24,6 +25,9 @@ export default class sbRoom {
         this.subtitle = subtitle;
         this.timerActive = timerActive;
         this.roundTimerStartedAt = roundTimerStartedAt;
+        this.roundState = roundState;
+
+        console.log('roundState: ', this.roundState);
 
         this.keyboardShortcuts = {
             'startPause': 'Spacebar',
