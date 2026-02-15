@@ -26,7 +26,7 @@
 
 // Continue integration here:
     // Link admin functions to the new database and save data directly after each change by usage of the API.
-        // 8. roundTimerStartetAt speichern.
+        // 8. roundTimerStartedAt speichern.
         // 9. roundState speichern.
 
         // 10. Player speichern

@@ -10,7 +10,8 @@ export default class sbRoom {
         activePlayerIds = [], // Array of { playerNumber: int, playerId: string }
         timerActive = true,
         roundTime = '2:45',
-        roundTimeLeft = '0:03'
+        roundTimeLeft = '0:03',
+        roundTimerStartedAt = null
     ) {
         this.id = id;
         this.activePlayerIds = activePlayerIds;
@@ -22,6 +23,7 @@ export default class sbRoom {
         this.roundTimeLeft = roundTimeLeft;
         this.subtitle = subtitle;
         this.timerActive = timerActive;
+        this.roundTimerStartedAt = roundTimerStartedAt;
 
         this.keyboardShortcuts = {
             'startPause': 'Spacebar',

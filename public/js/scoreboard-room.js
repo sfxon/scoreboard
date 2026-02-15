@@ -222,6 +222,7 @@ export default class sbScoreboard {
             this.room.timerActive,
             this.room.roundTime,
             this.room.roundTimeLeft,
+            this.room.roundTimerStartedAt
         );
 
         this.init();
