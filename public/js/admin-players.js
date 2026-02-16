@@ -14,22 +14,9 @@ export default class sbAdminPlayers {
         this.sbModal = sbModal;
         this.scoreboard = scoreboard;
 
-        // This requires that all DOM Contents are already fired.
-        // The class that instantiates this, has to take care of this.
-        // An alternative way would be, to wrap this in // document.addEventListener('DOMContentLoaded', () => {
-        this.initEditorWithPlayers(this.scoreboard.getRoom().players);
+        // This requires that all DOM Contents are already loaded.
+        this.reloadPlayerViews();
         this.initAddPlayerBtnHandler();
-
-        let player1 = this.scoreboard.getRoom().getActivePlayer(1);
-        let player2 = this.scoreboard.getRoom().getActivePlayer(2);
-
-        if(player1 !== null && player2 !== null) {
-            this.activatePlayer(1, player1.id);
-            this.activatePlayer(2, player2.id);
-        } else {
-            this.activatePlayer(1, this.scoreboard.getRoom().players[0].id);
-            this.activatePlayer(2, this.scoreboard.getRoom().players[1].id);
-        }
     }
 
     activatePlayer(playerNumber, playerId) {
@@ -155,5 +142,26 @@ export default class sbAdminPlayers {
         let player = this.scoreboard.getPlayerById(playerId);
         await this.scoreboard.savePlayer(player);
         this.scoreboard.updatePlayerViews();
+    }
+
+    reloadPlayerViews() {
+        this.removePlayerPanes();
+        this.initEditorWithPlayers(this.scoreboard.getRoom().players);
+        
+        let player1 = this.scoreboard.getRoom().getActivePlayer(1);
+        let player2 = this.scoreboard.getRoom().getActivePlayer(2);
+
+        if(player1 !== null && player2 !== null) {
+            this.activatePlayer(1, player1.id);
+            this.activatePlayer(2, player2.id);
+        } else {
+            this.activatePlayer(1, this.scoreboard.getRoom().players[0].id);
+            this.activatePlayer(2, this.scoreboard.getRoom().players[1].id);
+        }
+    }
+
+    removePlayerPanes() {
+        let sbAdminPlayerEl = document.getElementById('sb-admin-players');
+        sbAdminPlayerEl.innerHTML = '';
     }
 }

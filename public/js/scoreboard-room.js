@@ -35,6 +35,7 @@ export default class sbScoreboard {
         let playerId = this.getPlayerIdByNumber(playerNumber);
         let player = this.getPlayerById(playerId);
         player.reducePoints(1);
+        this.api.post('player/upsert', { id: playerId, points: player.points });
         this.updatePlayerViews();
     }
 
@@ -42,6 +43,7 @@ export default class sbScoreboard {
         let playerId = this.getPlayerIdByNumber(playerNumber);
         let player = this.getPlayerById(playerId);
         player.reduceRoundsWon();
+        this.api.post('player/upsert', { id: playerId, roundsWon: player.roundsWon });
         this.updatePlayerViews();
     }
 
@@ -84,6 +86,7 @@ export default class sbScoreboard {
             let player = this.getPlayerById(playerIdsEntry['playerId']);
             player.addLifetimePoints(player.points);
             player.points = 0;
+            this.api.post('player/upsert', { id: player.id, points: player.points, lifetimePoints: player.lifetimePoints });
         }
 
         this.updatePlayerViews();
@@ -93,6 +96,7 @@ export default class sbScoreboard {
         for(let playerIdsEntry of this.myRoom.activePlayerIds) {
             let player = this.getPlayerById(playerIdsEntry['playerId']);
             player.points = 0;
+            this.api.post('player/upsert', { id: player.id, points: 0 });
         }
 
         this.updatePlayerViews();
@@ -103,6 +107,7 @@ export default class sbScoreboard {
             let player = this.getPlayerById(playerIdsEntry['playerId']);
             player.points = 0;
             player.roundsWon = 0;
+            this.api.post('player/upsert', { id: player.id, points: 0, roundsWon: 0 });
         }
 
         this.updatePlayerViews();
@@ -111,6 +116,7 @@ export default class sbScoreboard {
     incrementPlayerPoints(playerNumber) {
         let player = this.getPlayerByNumber(playerNumber);
         player.addPoints(1);
+        this.api.post('player/upsert', { id: player.id, points: player.points });
         this.updatePlayerViews();
         this.myIncrementAnimator.prepareAnimation('points' + playerNumber, player.name, 1);
     }
@@ -118,17 +124,8 @@ export default class sbScoreboard {
     incrementPlayerRounds(playerNumber) {
         let player = this.getPlayerByNumber(playerNumber);
         player.addRoundsWon();
+        this.api.post('player/upsert', { id: player.id, roundsWon: player.roundsWon });
         this.updatePlayerViews();
-    }
-
-    /**
-     * Initialise html elements.
-     */
-    init() {
-        this.roomNameEl = document.getElementById(this.roomNameId);
-        this.roomSubtitleEl = document.getElementById(this.roomSubtitleId);
-        this.updateView();
-        this.initKeyboardShortcuts();
     }
 
     async initApi() {
@@ -226,7 +223,24 @@ export default class sbScoreboard {
             this.room.roundSate
         );
 
-        this.init();
+        this.roomNameEl = document.getElementById(this.roomNameId);
+        this.roomSubtitleEl = document.getElementById(this.roomSubtitleId);
+        this.updateView();
+        this.activatePlayers();
+        this.initKeyboardShortcuts();
+    }
+
+    activatePlayers() {
+        let player1 = this.myRoom.getActivePlayer(1);
+        let player2 = this.myRoom.getActivePlayer(2);
+
+        if(player1 !== null && player2 !== null) {
+            this.activatePlayer(1, player1.id);
+            this.activatePlayer(2, player2.id);
+        } else {
+            this.activatePlayer(1, this.myRoom.players[0].id);
+            this.activatePlayer(2, this.myRoom.players[1].id);
+        }
     }
 
     async loadGameById(gameId) {

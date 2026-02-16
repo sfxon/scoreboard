@@ -11,6 +11,7 @@ export default class sbAdmin {
         this.sbModalId = 'admin-modal';
         this.scoreboard = scoreboard;
         this.sbAdminGeneral = null;
+        this.sbAdminPlayers = null;
         this.init();
     }
 
@@ -44,6 +45,16 @@ export default class sbAdmin {
         const modalEl = document.getElementById(this.sbModalId);
         
         modalEl.addEventListener('shown.bs.modal', () => {
+            // Only update the fields, when the element was already loaded.
+            if(this.sbAdminGeneral !== null) {
+                this.sbAdminGeneral.updateInputFieldValues();
+            }
+
+            // Only update the fields, when the element was already loaded.
+            if(this.sbAdminPlayers !== null) {
+                this.sbAdminPlayers.reloadPlayerViews();
+            }
+
             this.scoreboard.keyboardShortcutsActivated = false;
         });
 
