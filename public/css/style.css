@@ -15,28 +15,31 @@ body {
 }
 
 /* General layout */
-#sb-main {
-    flex-wrap: nowrap;
-    height: calc(100vh - 5rem);
+@media screen and (min-width: 1200px) {
+    #sb-main {
+        /*flex-wrap: nowrap;*/
+        height: calc(100vh - 5rem);
+        align-items: stretch;   /* WICHTIG */
+    }
 }
 
 #sb-middle {
     background-color: #000;
     padding: 0;
-    width: 58%;
+    /*width: 58%;*/
     height: 100%;
 }
 
 #sb-player-1 {
     background-color: #900;
     height: 100%;
-    width: 21%;
+    /*width: 21%;*/
 }
 
 #sb-player-2 {
     background-color: #036;
     height: 100%;
-    width: 21%;
+    /*width: 21%;*/
 }
 
 #sb-subtitle {
