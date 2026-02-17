@@ -33,11 +33,14 @@
         // ✓ 12. Ensure that the active players loads cleanly even when the admin interface is disabled.
     // ✓ Save data after change in the frontend by usage of the API.
     // ✓ When the admin interface get's opened, it should load the current values, because they probably have changed meanwhile.
+    // ✓ Fix responsive view (css).
+    // ✓ Add hotkeys tab to admin modal with a first draft of the content.
 
 // Continue integration here:
-    
-    // Fix responsive view (css).
     // Add keyboard or mouse shortcuts setup.
+        // Add new entity to database: account with fields: id (string), hotkeys (JSON oder LONGTEXT)
+        // Add hotkeys tab functionality for the admin editor.
+
     // Add switch player sides button.
     // Show highscores with switching leaderboards: sorted by roundsWon, sorted by lifetimePoints, sorted by lifetimeWins
     // Add "Start" button to start the game timer. (and print out, that the shortcut button to start stop is the spacebar)

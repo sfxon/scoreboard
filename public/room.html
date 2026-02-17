@@ -102,6 +102,9 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="sb-admin-modal-tab-colors-btn" data-bs-toggle="tab" data-bs-target="#sb-admin-modal-tab-colors" type="button" role="tab" aria-controls="sb-admin-modal-tab-colors" aria-selected="false">Colors</button>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="sb-admin-modal-tab-hotkeys-btn" data-bs-toggle="tab" data-bs-target="#sb-admin-modal-tab-hotkeys" type="button" role="tab" aria-controls="sb-admin-modal-tab-hotkeys" aria-selected="false">Hotkeys</button>
+                        </li>
                     </ul>
 
                     <!-- Tab panes -->
@@ -165,6 +168,99 @@
                         <!-- Tab content "colors" -->
                         <div class="tab-pane" id="sb-admin-modal-tab-colors" role="tabpanel" aria-labelledby="sb-admin-modal-tab-colors-btn" tabindex="0">
                             <p>Colors</p>
+                        </div>
+
+                        <!-- Tab content "hotkeys" -->
+                        <div class="tab-pane" id="sb-admin-modal-tab-hotkeys" role="tabpanel" aria-labelledby="sb-admin-modal-tab-hotkeys-btn" tabindex="0">
+                            <form>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p><b>General</b></p>
+                                        <div class="mb-3 row">
+                                            <label class="col-12 form-label">Runde beenden</label>
+                                            <div class="col-8"><input type="text" class="form-control" readonly="readonly" /></div>
+                                            <div class="col-4"><button type="button" class="btn btn btn-secondary">Change</button></div>
+                                            <div class="col-12 form-text">Beendet die Runde, und addiert die Runden-Punktzahl der aktiven Spieler zu ihrer Lifetime-Punktzahl hinzu.</div>
+                                        </div>
+                                        <div class="mb-3 pt-3 row border-top">
+                                            <label class="col-12 form-label">Runde zurücksetzen</label>
+                                            <div class="col-8"><input type="text" class="form-control" readonly="readonly" /></div>
+                                            <div class="col-4"><button type="button" class="btn btn-secondary">Change</button></div>
+                                            <div class="col-12 form-text">Setzt die Runden-Punkte für alle Spieler auf 0 zurück.</div>
+                                        </div>
+                                        <div class="mb-3 pt-3 row border-top">
+                                            <label class="col-12 form-label">Neues Spiel</label>
+                                            <div class="col-8"><input type="text" class="form-control" readonly="readonly" /></div>
+                                            <div class="col-4"><button type="button" class="btn btn-secondary">Change</button></div>
+                                            <div class="col-12 form-text">Setzt Runden-Punktzahl und gewonnene Runden auf 0 zurück, ohne sie zu den Lifetime Punkten aufzuaddieren.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <hr />
+                                        <p><b>Spieler</b></p>
+
+                                        <div class="mb-3 row">
+                                            <div class="col-2">Einstellung</div>
+                                            <div class="col-4">Spieler 1</div>
+                                            <div class="col-4">Spieler 2</div>
+                                        </div>
+
+                                        <div class="mb-3 pt-3 row border-top">
+                                            <label class="col-2 form-label">Punkte +1</label>
+                                            <div class="col-4">
+                                                <input type="text" class="form-input" readonly="readonly" />
+                                                <button type="button" class="btn btn-small btn-secondary">Change</button>
+                                            </div>
+                                            <div class="col-4">
+                                                <input type="text" class="form-input" readonly="readonly" />
+                                                <button type="button" class="btn btn-small btn-secondary">Change</button>
+                                            </div>
+                                            <div class="col-12 form-text">Erhöht die Anzahl gewonnener Punkte eines Spielers um 1.</div>
+                                        </div>
+
+                                        <div class="mb-3 pt-3 row border-top">
+                                            <div class="col-2">Punkte -1</div>
+                                            <div class="col-4">
+                                                <input type="text" class="form-input" readonly="readonly" />
+                                                <button type="button" class="btn btn-small btn-secondary">Change</button>
+                                            </div>
+                                            <div class="col-4">
+                                                <input type="text" class="form-input" readonly="readonly" />
+                                                <button type="button" class="btn btn-small btn-secondary">Change</button>
+                                            </div>
+                                            <div class="col-12 form-text">Verringert die Anzahl gewonnener Punkte eines Spielers um 1.</div>
+                                        </div>
+
+                                        <div class="mb-3 pt-3 row border-top">
+                                            <div class="col-2">Runde +1</div>
+                                            <div class="col-4">
+                                                <input type="text" class="form-input" readonly="readonly" />
+                                                <button type="button" class="btn btn-small btn-secondary">Change</button>
+                                            </div>
+                                            <div class="col-4">
+                                                <input type="text" class="form-input" readonly="readonly" />
+                                                <button type="button" class="btn btn-small btn-secondary">Change</button>
+                                            </div>
+                                            <div class="col-12 form-text">Erhöht die Anzahl gewonnener Runden des Spielers um 1.</div>
+                                        </div>
+
+                                        <div class="mb-3 pt-3 row border-top">
+                                            <div class="col-2">Runde -1</div>
+                                            <div class="col-4">
+                                                <input type="text" class="form-input" readonly="readonly" />
+                                                <button type="button" class="btn btn-small btn-secondary">Change</button>
+                                            </div>
+                                            <div class="col-4">
+                                                <input type="text" class="form-input" readonly="readonly" />
+                                                <button type="button" class="btn btn-small btn-secondary">Change</button>
+                                            </div>
+                                            <div class="col-12 form-text">Verringert die Anzahl gewonnener Runden des Spielers um 1.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
