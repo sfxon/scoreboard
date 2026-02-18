@@ -49,7 +49,45 @@ Use this scoreboard to display your live game scores.
 
 ### Database 
 
-![Diagram of the database](docs/database-diagram.drawio.svg)
+```mermaid
+erDiagram
+    Game ||--o{ Room : contains
+    Game {
+        string id PK "UUID4"
+        string name
+    }
+
+    Room }|..o{ RoundStateEnum : has
+    Room ||--o{ Player : contains
+    Room {
+        string id PK "UUID4"
+        string name
+        string subtitle
+        string gameId FK
+        string activatedPlayers "json"
+        int(1) timerActive
+        int(11) roundTime "in seconds"
+        int(11) roundTimerStartedAt "nullable"
+        int(11) roundState "NOT NULL, RoundStateEnum"
+        string keyboardShortcuts "json"
+    }
+
+    Player {
+        string id PK "UUID4"
+        string name
+        string roomId FK
+        int points
+        int lifetimePoints
+        int roundsWon
+    }
+
+    RoundStateEnum {
+        int Pending "0 = Round is in preparation."
+        int InProgress "1 = Round is active."
+        int Paused "2 = Round is temporarily stopped."
+        int Ended "3 = Round finished, <br>doesn't care about<br>finishing reason."
+    }
+```
 
 #### Data Hierarchy
 

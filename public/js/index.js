@@ -38,7 +38,7 @@
 
 // Continue integration here:
     // Add keyboard or mouse shortcuts setup.
-        // Add new entity to database: account with fields: id (string), hotkeys (JSON oder LONGTEXT)
+        // I decided to save the keyboard shortcuts in a "onRoom" base now, since you might want to have different setups for different rooms.
         // Add hotkeys tab functionality for the admin editor.
 
     // Add switch player sides button.
