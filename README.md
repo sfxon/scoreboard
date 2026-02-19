@@ -44,6 +44,7 @@ Use this scoreboard to display your live game scores.
   * Add "Loosing points" animations.
     * Currently, only animations are shown, when the player earns points. Additionally, we could add animations, whenever the value is negative with special animations for that.
 
+  * Add default Hotkeys (keyboard shortcuts) per game. That should replace the static default hotkeys, that are used now.
 
 ## Concept
 
@@ -128,3 +129,8 @@ It acts like a usual REST-API, meaning, it takes command-type, endpoint and para
 In a future version it can use the methods to save data on a server - it just needs an additional implementation of the API then.
 
 ![Diagram of the api](docs/api.drawio.svg)
+
+## Hotkeys: Keyboard Shortcuts
+
+Hotkeys are saved on a "per room" basis.
+Default Hotkeys are hardcoded for now, but may later be added on a "per game" basis.

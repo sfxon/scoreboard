@@ -1,4 +1,5 @@
 import sbAdminGeneral from './admin-general.js';
+import sbAdminHotkeys from './admin-hotkeys.js';
 import sbAdminPlayers from './admin-players.js';
 
 export default class sbAdmin {
@@ -11,6 +12,7 @@ export default class sbAdmin {
         this.sbModalId = 'admin-modal';
         this.scoreboard = scoreboard;
         this.sbAdminGeneral = null;
+        this.sbAdminHotkeys = null;
         this.sbAdminPlayers = null;
         this.init();
     }
@@ -25,6 +27,7 @@ export default class sbAdmin {
         this.initModal();
         this.sbModal.show();
         this.sbAdminGeneral = new sbAdminGeneral(this.sbModal, this.scoreboard);
+        this.sbAdminHotkeys = new sbAdminHotkeys(this.sbModal, this.scoreboard);
         this.sbAdminPlayers = new sbAdminPlayers(this.sbModal, this.scoreboard);
     }
 

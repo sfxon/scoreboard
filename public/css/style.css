@@ -260,3 +260,26 @@ h2.modal-title {
 .sb-index-room-game-container {
     margin-bottom: 1rem;
 }
+
+#sb-hotkey-input-overlay {
+    align-items: center;
+    background-color: rgba(0, 0, 0, .8);
+    display: none;
+    font-size: 1rem;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 1100;
+}
+
+.sb-hotkey-input-overlay-primary-message {
+    font-size: 1.8rem;
+}
+
+#sb-hotkey-input-overlay-action-info {
+    font-style: italic;
+}

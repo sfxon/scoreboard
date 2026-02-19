@@ -176,10 +176,10 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <p><b>General</b></p>
-                                        <div class="mb-3 row">
+                                        <div class="mb-3 row hotkey-row">
                                             <label class="col-12 form-label">Runde beenden</label>
-                                            <div class="col-8"><input type="text" class="form-control" readonly="readonly" /></div>
-                                            <div class="col-4"><button type="button" class="btn btn btn-secondary">Change</button></div>
+                                            <div class="col-8"><input type="text" class="form-control sb-hotkey-input" readonly="readonly" data-attr-hotkey-id="endRound" /></div>
+                                            <div class="col-4"><button type="button" class="btn btn btn-secondary sb-change-hotkey-btn">Change</button></div>
                                             <div class="col-12 form-text">Beendet die Runde, und addiert die Runden-Punktzahl der aktiven Spieler zu ihrer Lifetime-Punktzahl hinzu.</div>
                                         </div>
                                         <div class="mb-3 pt-3 row border-top">
@@ -302,10 +302,15 @@
         </div>
     </div>
 
+    <div id="sb-hotkey-input-overlay">
+        <div class="text-center sb-hotkey-input-overlay-primary-message">Press the button that you want to use for [<span id="sb-hotkey-input-overlay-action-info">...</span>]</div>
+        <div class="mt-3 mb-3 text-center"><span>Press ESC to cancel this action.</span><br><small>(You cannot use the ESC key as a hotkey.)</small></div>
+    </div>
+
     <script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
 
     <script type="module">
-        import sbAdmin from './js/admin.js';
+        import sbAdmin from './js/admin/admin.js';
         import sbScoreboard from './js/scoreboard-room.js';
 
         document.addEventListener('DOMContentLoaded', async() => {

@@ -1,4 +1,4 @@
-import sbPlayer from './player.js';
+import sbPlayer from './../player.js';
 
 export default class sbAdminPlayers {
     /**

@@ -38,8 +38,15 @@
 
 // Continue integration here:
     // Add keyboard or mouse shortcuts setup.
-        // I decided to save the keyboard shortcuts in a "onRoom" base now, since you might want to have different setups for different rooms.
         // Add hotkeys tab functionality for the admin editor.
+            // - block all keyboard input, as long as the overlay is open.
+            // - Fetch input: 
+                // * if it is the escape key, close the mode and overlay.
+                // * if it is any other key, save the input and close the overlay. Update the input box to reflect the newly used key.
+                // * Save input in room.
+        // Loading: Load previously defined hotkeys for the room.
+        // Show the currently used hotkeys in the input fields in the admin tab.
+
 
     // Add switch player sides button.
     // Show highscores with switching leaderboards: sorted by roundsWon, sorted by lifetimePoints, sorted by lifetimeWins
