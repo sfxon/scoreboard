@@ -29,18 +29,14 @@ export default class sbRoom {
 
         this.keyboardShortcuts = {
             'startPause': 'Spacebar',
-            'points': {
-                '1plus': '1',
-                '1minus': '4',
-                '2plus': '3',
-                '2minus': '6'
-            },
-            'roundsWon': {
-                '1plus': 'y',
-                '1minus': 'a',
-                '2plus': 'm',
-                '2minus': 'k'
-            },
+            'points1plus': '1',
+            'points1minus': '4',
+            'points2plus': '3',
+            'points2minus': '6',
+            'rounds1plus': 'y',
+            'rounds1minus': 'a',
+            'rounds2plus': 'm',
+            'rounds2minus': 'k',
             'resetRound': 'Delete',
             'endRound': 'Home',
             'newGame': 'N'

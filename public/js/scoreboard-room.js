@@ -22,6 +22,10 @@ export default class sbScoreboard {
         this.timer = new sbTimer();
     }
 
+    activateHotkeyInScoreboard(hotkeyIdToConfigure, key) {
+        this.myRoom.keyboardShortcuts[hotkeyIdToConfigure] = key;
+    }
+
     activatePlayer(playerNumber, playerId) {
         this.myRoom.setActivePlayer(playerNumber, playerId);
         this.updatePlayerViews();
@@ -146,36 +150,36 @@ export default class sbScoreboard {
             }
 
             // Points added or removed per player.
-            if(event.key === this.myRoom.keyboardShortcuts.points['1plus']) {
+            if(event.key === this.myRoom.keyboardShortcuts['points1plus']) {
                 this.incrementPlayerPoints(1);
             }
 
-            if(event.key === this.myRoom.keyboardShortcuts.points['1minus']) {
+            if(event.key === this.myRoom.keyboardShortcuts['points1minus']) {
                 this.decrementPlayerPoints(1);
             }
 
-            if(event.key === this.myRoom.keyboardShortcuts.points['2plus']) {
+            if(event.key === this.myRoom.keyboardShortcuts['points2plus']) {
                 this.incrementPlayerPoints(2);
             }
 
-            if(event.key === this.myRoom.keyboardShortcuts.points['2minus']) {
+            if(event.key === this.myRoom.keyboardShortcuts['points2minus']) {
                 this.decrementPlayerPoints(2);
             }
 
             // Rounds added or removed per player.
-            if(event.key === this.myRoom.keyboardShortcuts.roundsWon['1plus']) {
+            if(event.key === this.myRoom.keyboardShortcuts['rounds1plus']) {
                 this.incrementPlayerRounds(1);
             }
 
-            if(event.key === this.myRoom.keyboardShortcuts.roundsWon['1minus']) {
+            if(event.key === this.myRoom.keyboardShortcuts['rounds1minus']) {
                 this.decrementPlayerRounds(1);
             }
 
-            if(event.key === this.myRoom.keyboardShortcuts.roundsWon['2plus']) {
+            if(event.key === this.myRoom.keyboardShortcuts['rounds2plus']) {
                 this.incrementPlayerRounds(2);
             }
 
-            if(event.key === this.myRoom.keyboardShortcuts.roundsWon['2minus']) {
+            if(event.key === this.myRoom.keyboardShortcuts['rounds2minus']) {
                 this.decrementPlayerRounds(2);
             }
 

@@ -34,16 +34,15 @@
     // ✓ Save data after change in the frontend by usage of the API.
     // ✓ When the admin interface get's opened, it should load the current values, because they probably have changed meanwhile.
     // ✓ Fix responsive view (css).
-    // ✓ Add hotkeys tab to admin modal with a first draft of the content.
-
+    // Add keyboard or mouse shortcuts setup.
+        // ✓ Add hotkeys tab to admin modal with a first draft of the content.
+            // ✓ - block all keyboard input, as long as the overlay is open.
+            // ✓ - Fetch input: 
+                // ✓ * if it is the escape key, close the mode and overlay.
+                // ✓ * if it is any other key, save the input and close the overlay. Update the input box to reflect the newly used key.
 // Continue integration here:
     // Add keyboard or mouse shortcuts setup.
-        // Add hotkeys tab functionality for the admin editor.
-            // - block all keyboard input, as long as the overlay is open.
-            // - Fetch input: 
-                // * if it is the escape key, close the mode and overlay.
-                // * if it is any other key, save the input and close the overlay. Update the input box to reflect the newly used key.
-                // * Save input in room.
+                // * Save hotkey-selection in room-settings in database.
         // Loading: Load previously defined hotkeys for the room.
         // Show the currently used hotkeys in the input fields in the admin tab.
 
