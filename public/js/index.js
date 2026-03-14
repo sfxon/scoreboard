@@ -40,11 +40,9 @@
             // ✓ - Fetch input: 
                 // ✓ * if it is the escape key, close the mode and overlay.
                 // ✓ * if it is any other key, save the input and close the overlay. Update the input box to reflect the newly used key.
-// Continue integration here:
-    // Add keyboard or mouse shortcuts setup.
-                // * Save hotkey-selection in room-settings in database.
-        // Loading: Load previously defined hotkeys for the room.
-        // Show the currently used hotkeys in the input fields in the admin tab.
+                // ✓ * Save hotkey-selection in room-settings in database.
+        // ✓ Loading: Load previously defined hotkeys for the room, when the room is loaded.
+        // ✓ Show the currently used hotkeys in the input fields in the admin tab.
 
 
     // Add switch player sides button.

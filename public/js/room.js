@@ -13,6 +13,7 @@ export default class sbRoom {
         roundTimeLeft = '0:03',
         roundTimerStartedAt = null,
         roundState = 0,
+        keyboardShortcuts = {}
     ) {
         this.id = id;
         this.activePlayerIds = activePlayerIds;
@@ -41,6 +42,14 @@ export default class sbRoom {
             'endRound': 'Home',
             'newGame': 'N'
         };
+
+        if(typeof keyboardShortcuts === 'object' && !Array.isArray(keyboardShortcuts) && keyboardShortcuts !== null) {
+            for(let kbIndex in this.keyboardShortcuts) {
+                if(keyboardShortcuts.hasOwnProperty(kbIndex)) {
+                    this.keyboardShortcuts[kbIndex] = keyboardShortcuts[kbIndex];
+                }
+            }
+        }
 
         // Add players
         let playerAddCount = 0;

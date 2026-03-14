@@ -224,7 +224,8 @@ export default class sbScoreboard {
             this.room.roundTime,
             this.room.roundTimeLeft,
             this.room.roundTimerStartedAt,
-            this.room.roundSate
+            this.room.roundSate,
+            this.room.keyboardShortcuts
         );
 
         this.roomNameEl = document.getElementById(this.roomNameId);
@@ -327,6 +328,13 @@ export default class sbScoreboard {
         let data = {};
         data['id'] = this.myRoom.id;
         data['activePlayerIds'] = this.myRoom.activePlayerIds;
+        this.api.post('room/update', data);
+    }
+
+    saveHotkeys() {
+        let data = {};
+        data['id'] = this.myRoom.id;
+        data['keyboardShortcuts'] = this.myRoom.keyboardShortcuts;
         this.api.post('room/update', data);
     }
 

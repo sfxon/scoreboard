@@ -17,7 +17,7 @@ export default class sbAdminPlayers {
         this.hotkeyIdToConfigure = null;
 
         this.initHotkeyElements();
-        // this.initInputFieldsWithCurrentValues();
+        this.initInputFieldsWithCurrentValues();
         this.initChangeButtons();
     }
 
@@ -34,11 +34,11 @@ export default class sbAdminPlayers {
             // Save the selected key in the input box.
             this.inputElToConfigure.value = event.key;
 
-            // Save the selected key.
-            this.saveNewHotkey(this.hotkeyIdToConfigure, event.key);
-
             // Activate the hotkey in the live system.
             this.scoreboard.activateHotkeyInScoreboard(this.hotkeyIdToConfigure, event.key);
+
+            // Save the selected key.
+            this.scoreboard.saveHotkeys();
             
             // Close the overlay and activate the default behaviour of the modal.
             this.hotkeyOverlayEl.style.display = 'none'; // Hide overlay.
@@ -89,6 +89,21 @@ export default class sbAdminPlayers {
         this.actionInfoEl = document.getElementById(this.actionInfoId);
     }
 
+    initInputFieldsWithCurrentValues() {
+        let inputEls = document.querySelectorAll('#sb-admin-modal-tab-hotkeys .sb-hotkey-input');
+
+        for(let inputEl of inputEls) {
+            let hotkeyId = inputEl.getAttribute('data-attr-hotkey-id');
+
+            if (typeof hotkeyId === 'string' || hotkeyId instanceof String) {
+                if(this.scoreboard.myRoom.keyboardShortcuts.hasOwnProperty(hotkeyId)) {
+                    let value = this.scoreboard.myRoom.keyboardShortcuts[hotkeyId];
+                    inputEl.value = value;
+                }
+            }
+        }
+    }
+
     removeFetchInputKeyListener() {
         if(this.fetchInputEventListener) {
             document.removeEventListener('keyup', this.fetchInputEventListener);
@@ -101,10 +116,5 @@ export default class sbAdminPlayers {
             this.sbModal._element.removeEventListener('hide.bs.modal', this.hideEventListener);
             this.hideEventListener = null;
         }
-    }
-
-    saveNewHotkey(hotkeyIdToConfigure, key) {
-        console.log('SaveNewHotkey: ', hotkeyIdToConfigure, key);
-        //this.scoreboard.setHotkey()
     }
 }
