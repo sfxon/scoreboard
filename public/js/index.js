@@ -47,6 +47,7 @@
     // ✓ Show highscores with switching leaderboards: sorted by roundsWon, sorted by lifetimePoints, sorted by lifetimeWins
 
     // Continue integration here ------------------->
+    // Add button to remove a player from the room. Do not remove him, as long as he is a active player.
     // Add "Start" button to start the game timer. (and print out, that the shortcut button to start stop is the spacebar)
     // Leertaste zukünftig so verwenden, dass sie den Timer startet und stoppt, statt den Dialog zu öffnen und zu schließen.
     // Color layout (just some css code entry for now?)
