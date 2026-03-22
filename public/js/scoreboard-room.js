@@ -20,6 +20,11 @@ export default class sbScoreboard {
         this.myIncrementAnimator = new sbIncrementAnimator();
         this.roomId = null;
         this.timer = new sbTimer();
+        this.highscoreContainer = null;
+        this.highscoreRowTemplate = null;
+        this.highscoreSubtitleContainer = null;
+        this.highscoreMode = 0;
+        this.highscoreUpdateSpeed = 30000; // 30 Sekunden
     }
 
     activateHotkeyInScoreboard(hotkeyIdToConfigure, key) {
@@ -29,6 +34,19 @@ export default class sbScoreboard {
     activatePlayer(playerNumber, playerId) {
         this.myRoom.setActivePlayer(playerNumber, playerId);
         this.updatePlayerViews();
+    }
+
+    activatePlayers() {
+        let player1 = this.myRoom.getActivePlayer(1);
+        let player2 = this.myRoom.getActivePlayer(2);
+
+        if(player1 !== null && player2 !== null) {
+            this.activatePlayer(1, player1.id);
+            this.activatePlayer(2, player2.id);
+        } else {
+            this.activatePlayer(1, this.myRoom.players[0].id);
+            this.activatePlayer(2, this.myRoom.players[1].id);
+        }
     }
 
     addPlayer(player) {
@@ -48,6 +66,17 @@ export default class sbScoreboard {
         let player = this.getPlayerById(playerId);
         player.reduceRoundsWon();
         this.api.post('player/upsert', { id: playerId, roundsWon: player.roundsWon });
+        this.updatePlayerViews();
+    }
+
+    endRound() {
+        for(let playerIdsEntry of this.myRoom.activePlayerIds) {
+            let player = this.getPlayerById(playerIdsEntry['playerId']);
+            player.addLifetimePoints(player.points);
+            player.points = 0;
+            this.api.post('player/upsert', { id: player.id, points: player.points, lifetimePoints: player.lifetimePoints });
+        }
+
         this.updatePlayerViews();
     }
 
@@ -85,38 +114,6 @@ export default class sbScoreboard {
         return this.myRoom;
     }
 
-    endRound() {
-        for(let playerIdsEntry of this.myRoom.activePlayerIds) {
-            let player = this.getPlayerById(playerIdsEntry['playerId']);
-            player.addLifetimePoints(player.points);
-            player.points = 0;
-            this.api.post('player/upsert', { id: player.id, points: player.points, lifetimePoints: player.lifetimePoints });
-        }
-
-        this.updatePlayerViews();
-    }
-
-    resetRound() {
-        for(let playerIdsEntry of this.myRoom.activePlayerIds) {
-            let player = this.getPlayerById(playerIdsEntry['playerId']);
-            player.points = 0;
-            this.api.post('player/upsert', { id: player.id, points: 0 });
-        }
-
-        this.updatePlayerViews();
-    }
-
-    newGame() {
-        for(let playerIdsEntry of this.myRoom.activePlayerIds) {
-            let player = this.getPlayerById(playerIdsEntry['playerId']);
-            player.points = 0;
-            player.roundsWon = 0;
-            this.api.post('player/upsert', { id: player.id, points: 0, roundsWon: 0 });
-        }
-
-        this.updatePlayerViews();
-    }
-
     incrementPlayerPoints(playerNumber) {
         let player = this.getPlayerByNumber(playerNumber);
         player.addPoints(1);
@@ -140,6 +137,8 @@ export default class sbScoreboard {
 
     initKeyboardShortcuts() {
         document.addEventListener('keyup', (event) => {
+            console.log(event.key);
+
             if(!this.keyboardShortcutsActivated) {
                 return;
             }
@@ -197,6 +196,11 @@ export default class sbScoreboard {
             if(event.key === this.myRoom.keyboardShortcuts['newGame']) {
                 this.newGame();
             }
+
+            // Switch Players
+            if(event.key === this.myRoom.keyboardShortcuts['switchPlayers']) {
+                this.switchPlayers();
+            }
         });
     }
 
@@ -233,19 +237,7 @@ export default class sbScoreboard {
         this.updateView();
         this.activatePlayers();
         this.initKeyboardShortcuts();
-    }
-
-    activatePlayers() {
-        let player1 = this.myRoom.getActivePlayer(1);
-        let player2 = this.myRoom.getActivePlayer(2);
-
-        if(player1 !== null && player2 !== null) {
-            this.activatePlayer(1, player1.id);
-            this.activatePlayer(2, player2.id);
-        } else {
-            this.activatePlayer(1, this.myRoom.players[0].id);
-            this.activatePlayer(2, this.myRoom.players[1].id);
-        }
+        this.renderHighscores();
     }
 
     async loadGameById(gameId) {
@@ -274,6 +266,213 @@ export default class sbScoreboard {
     async loadRoom(roomId) {
         let roomData = await this.api.post('room/load', { id: roomId });
         return roomData;
+    }
+
+    newGame() {
+        for(let playerIdsEntry of this.myRoom.activePlayerIds) {
+            let player = this.getPlayerById(playerIdsEntry['playerId']);
+            player.points = 0;
+            player.roundsWon = 0;
+            this.api.post('player/upsert', { id: player.id, points: 0, roundsWon: 0 });
+        }
+
+        this.updatePlayerViews();
+    }
+
+    renderHighscorePlayer(position, playerName, points) {
+        if(this.highscoreRowTemplate === null) {
+            this.highscoreRowTemplate = document.getElementById('sb-highscore-row-template').innerHTML;
+        }
+
+        let templateObj = document.createElement('template');
+        let template = this.highscoreRowTemplate;
+        templateObj.innerHTML = template;
+
+        let newRowContainer = templateObj.content.firstElementChild;
+        newRowContainer.querySelector('.pos').innerHTML = position.toString();
+        newRowContainer.querySelector('.name').innerHTML = playerName;
+        newRowContainer.querySelector('.points').innerHTML = points;
+
+        this.highscoreContainer.insertAdjacentElement('beforeend', newRowContainer);
+    }
+
+    renderHighscores() {
+        this.highscoreMode ++;
+
+        if(this.highscoreMode > 3) {
+            this.highscoreMode = 1;
+        }
+
+        if(this.highscoreMode == 1) {
+            this.renderHighscoresByRoundsWon();
+        } else if(this.highscoreMode === 2) {
+            this.renderHighscoresByLifetimePoints();
+        } else if(this.highscoreMode === 3) {
+            this.renderHighscoresLifetimeRoundsWon();
+        }
+
+        window.setTimeout(this.renderHighscores.bind(this), this.highscoreUpdateSpeed);
+    }
+
+    renderHighscoresByRoundsWon() {
+        // Set subtitle
+        if(this.highscoreSubtitleContainer === null) {
+            this.highscoreSubtitleContainer = document.querySelector('.sb-highscore-subtitle');
+        }
+
+        this.highscoreSubtitleContainer.innerHTML = '=== Gewonnene Runden ===';
+
+        // Sort players.
+        let sortedPlayers = this.myRoom.players.slice().sort((a, b) => b.roundsWon - a.roundsWon);
+
+        // Render result
+        // a) Clear highscore area.
+        if(this.highscoreContainer === null) {
+            this.highscoreContainer = document.querySelector('.sb-highscore-data');
+        }
+
+        this.highscoreContainer.innerHTML = null;
+
+        // b) Render one by one.
+        let iterations = 1;
+        let position = 1;
+        let lastPositionPoints = '';
+
+        for(let player of sortedPlayers) {
+            this.renderHighscorePlayer(position, player.name, player.roundsWon);
+
+            iterations++;
+
+            if(iterations > 10) {
+                return;
+            }
+
+            if(lastPositionPoints != player.roundsWon) {
+                position++;
+            }
+        }
+    }
+
+    renderHighscoresByLifetimePoints() {
+        // Set subtitle
+        if(this.highscoreSubtitleContainer === null) {
+            this.highscoreSubtitleContainer = document.querySelector('.sb-highscore-subtitle');
+        }
+
+        this.highscoreSubtitleContainer.innerHTML = '=== Jemals erspielte Punkte ===';
+
+        // Sort players.
+        let sortedPlayers = this.myRoom.players.slice().sort((a, b) => b.lifetimePoints - a.lifetimePoints);
+
+        // Render result
+        // a) Clear highscore area.
+        if(this.highscoreContainer === null) {
+            this.highscoreContainer = document.querySelector('.sb-highscore-data');
+        }
+
+        this.highscoreContainer.innerHTML = null;
+
+        // b) Render one by one.
+        let iterations = 1;
+        let position = 1;
+        let lastPositionPoints = '';
+
+        for(let player of sortedPlayers) {
+            this.renderHighscorePlayer(position, player.name, player.lifetimePoints);
+
+            iterations++;
+
+            if(iterations > 10) {
+                return;
+            }
+
+            if(lastPositionPoints != player.lifetimePoints) {
+                position++;
+            }
+        }
+    }
+
+    renderHighscoresLifetimeRoundsWon() {
+        // Set subtitle
+        if(this.highscoreSubtitleContainer === null) {
+            this.highscoreSubtitleContainer = document.querySelector('.sb-highscore-subtitle');
+        }
+
+        this.highscoreSubtitleContainer.innerHTML = '=== Jemals gewonnene Runden ===';
+
+        // Sort players.
+        let sortedPlayers = this.myRoom.players.slice().sort((a, b) => b.lifetimeRoundsWon - a.lifetimeRoundsWon);
+
+        // Render result
+        // a) Clear highscore area.
+        if(this.highscoreContainer === null) {
+            this.highscoreContainer = document.querySelector('.sb-highscore-data');
+        }
+
+        this.highscoreContainer.innerHTML = null;
+
+        // b) Render one by one.
+        let iterations = 1;
+        let position = 1;
+        let lastPositionPoints = '';
+
+        for(let player of sortedPlayers) {
+            this.renderHighscorePlayer(position, player.name, player.lifetimeRoundsWon);
+
+            iterations++;
+
+            if(iterations > 10) {
+                return;
+            }
+
+            if(lastPositionPoints != player.lifetimeRoundsWon) {
+                position++;
+            }
+        }
+    }
+
+    resetRound() {
+        for(let playerIdsEntry of this.myRoom.activePlayerIds) {
+            let player = this.getPlayerById(playerIdsEntry['playerId']);
+            player.points = 0;
+            this.api.post('player/upsert', { id: player.id, points: 0 });
+        }
+
+        this.updatePlayerViews();
+    }
+
+    saveActivePlayers() {
+        let data = {};
+        data['id'] = this.myRoom.id;
+        data['activePlayerIds'] = this.myRoom.activePlayerIds;
+        this.api.post('room/update', data);
+    }
+
+    saveHotkeys() {
+        let data = {};
+        data['id'] = this.myRoom.id;
+        data['keyboardShortcuts'] = this.myRoom.keyboardShortcuts;
+        this.api.post('room/update', data);
+    }
+
+    async savePlayer(player) {
+        let playerDto = player.getDto();
+        await this.api.post('player/upsert', playerDto);
+    }
+
+    switchPlayers() {
+        let player1 = this.myRoom.getActivePlayer(1);
+        let player2 = this.myRoom.getActivePlayer(2);
+
+        if(player1 !== null && player2 !== null) {
+            this.activatePlayer(1, player2.id);
+            this.activatePlayer(2, player1.id);
+        } else {
+            this.activatePlayer(1, this.myRoom.players[0].id);
+            this.activatePlayer(2, this.myRoom.players[1].id);
+        }
+
+        this.saveActivePlayers();
     }
 
     updatePlayerValue(playerId, methodName, value) {
@@ -322,24 +521,5 @@ export default class sbScoreboard {
     updateView() {
         this.roomNameEl.innerHTML = this.myRoom.name;
         this.roomSubtitleEl.innerHTML = this.myRoom.subtitle;
-    }
-
-    saveActivePlayers() {
-        let data = {};
-        data['id'] = this.myRoom.id;
-        data['activePlayerIds'] = this.myRoom.activePlayerIds;
-        this.api.post('room/update', data);
-    }
-
-    saveHotkeys() {
-        let data = {};
-        data['id'] = this.myRoom.id;
-        data['keyboardShortcuts'] = this.myRoom.keyboardShortcuts;
-        this.api.post('room/update', data);
-    }
-
-    async savePlayer(player) {
-        let playerDto = player.getDto();
-        await this.api.post('player/upsert', playerDto);
     }
 }

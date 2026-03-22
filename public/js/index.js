@@ -43,10 +43,10 @@
                 // ✓ * Save hotkey-selection in room-settings in database.
         // ✓ Loading: Load previously defined hotkeys for the room, when the room is loaded.
         // ✓ Show the currently used hotkeys in the input fields in the admin tab.
+    // ✓ Add switch player sides button.
+    // ✓ Show highscores with switching leaderboards: sorted by roundsWon, sorted by lifetimePoints, sorted by lifetimeWins
 
-
-    // Add switch player sides button.
-    // Show highscores with switching leaderboards: sorted by roundsWon, sorted by lifetimePoints, sorted by lifetimeWins
+    // Continue integration here ------------------->
     // Add "Start" button to start the game timer. (and print out, that the shortcut button to start stop is the spacebar)
     // Leertaste zukünftig so verwenden, dass sie den Timer startet und stoppt, statt den Dialog zu öffnen und zu schließen.
     // Color layout (just some css code entry for now?)

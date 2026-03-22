@@ -136,6 +136,14 @@ body {
     text-transform: uppercase;
 }
 
+#sb-highscore .sb-highscore-subtitle {
+    color: #1199AA;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
 .highscore-row {
     display: flex;
     justify-content: space-between;
@@ -152,6 +160,7 @@ body {
 
 .highscore-row .pos {
     min-width: 10%;
+    text-align: center;
 }
 
 .highscore-row .name {
@@ -164,6 +173,8 @@ body {
 
 .highscore-row .points {
     color: #FFFF93;
+    text-align: right;
+    width: 20%;
 }
 
 .tab-pane {
@@ -282,4 +293,19 @@ h2.modal-title {
 
 #sb-hotkey-input-overlay-action-info {
     font-style: italic;
+}
+
+.sb-highscore-data-loading {
+    font-style: italic;
+    text-align: center;
+}
+
+.sb-highscore-data .highscore-row {
+    background-color: #111;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 400px;
+    padding: 3px 6px;
 }

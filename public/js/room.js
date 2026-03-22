@@ -40,7 +40,8 @@ export default class sbRoom {
             'rounds2minus': 'k',
             'resetRound': 'Delete',
             'endRound': 'Home',
-            'newGame': 'N'
+            'newGame': 'N',
+            'switchPlayers': 'Enter',
         };
 
         if(typeof keyboardShortcuts === 'object' && !Array.isArray(keyboardShortcuts) && keyboardShortcuts !== null) {

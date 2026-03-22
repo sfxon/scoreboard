@@ -30,41 +30,9 @@
                 <div id="sb-logo" class="d-none d-xl-block"><img src="img/sb-logo.png" alt="Game Logo"></div>
                 <div id="sb-highscore" class="d-none d-xl-block">
                     <div class="title">Highscores</div>
-                    <div class="row">
-                        <div class="col-md-3 offset-md-2">
-                            <div class="highscore-row">
-                                <div class="pos">1</div>
-                                <div class="name">Super Mario</div>
-                                <div class="points">566344</div>
-                            </div>
-                            <div class="highscore-row">
-                                <div class="pos">2</div>
-                                <div class="name">Peach</div>
-                                <div class="points">438344</div>
-                            </div>
-                            <div class="highscore-row">
-                                <div class="pos">3</div>
-                                <div class="name">Unc</div>
-                                <div class="points">234000</div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 offset-md-2">
-                            <div class="highscore-row">
-                                <div class="pos">4</div>
-                                <div class="name">Toni Macaroni</div>
-                                <div class="points">100000</div>
-                            </div>
-                            <div class="highscore-row">
-                                <div class="pos">5</div>
-                                <div class="name">J.R.R. T.</div>
-                                <div class="points">99343</div>
-                            </div>
-                            <div class="highscore-row">
-                                <div class="pos">6</div>
-                                <div class="name">Auntie</div>
-                                <div class="points">23521</div>
-                            </div>
-                        </div>
+                    <div class="sb-highscore-subtitle">...</div>
+                    <div class="sb-highscore-data">
+                        <div class="sb-highscore-data-loading">Loading</div>
                     </div>
                 </div>
             </div>
@@ -194,6 +162,12 @@
                                             <div class="col-4"><button type="button" class="btn btn-secondary sb-change-hotkey-btn">Change</button></div>
                                             <div class="col-12 form-text">Setzt Runden-Punktzahl und gewonnene Runden auf 0 zurück, ohne sie zu den Lifetime Punkten aufzuaddieren.</div>
                                         </div>
+                                        <div class="mb-3 pt-3 row hotkey-row border-top">
+                                            <label class="col-12 form-label">Spieler tauschen (Seitenwechsel)</label>
+                                            <div class="col-8"><input type="text" class="form-control sb-hotkey-input" readonly="readonly" disabled="true" data-attr-hotkey-id="switchPlayers" /></div>
+                                            <div class="col-4"><button type="button" class="btn btn-secondary sb-change-hotkey-btn">Change</button></div>
+                                            <div class="col-12 form-text">Tauscht die beiden in der Runde aktiven Spieler.</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -315,6 +289,14 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div id="sb-highscore-row-template">
+        <div class="highscore-row">
+            <div class="pos"></div>
+            <div class="name"></div>
+            <div class="points"></div>
         </div>
     </div>
 

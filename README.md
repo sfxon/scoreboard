@@ -130,7 +130,41 @@ In a future version it can use the methods to save data on a server - it just ne
 
 ![Diagram of the api](docs/api.drawio.svg)
 
+
 ## Hotkeys: Keyboard Shortcuts
 
 Hotkeys are saved on a "per room" basis.
 Default Hotkeys are hardcoded for now, but may later be added on a "per game" basis.
+
+Default hotkeys:
+
+<table>
+    <thead><tr><td>Key</td><td>Action</td></thead>
+    <body>
+        <tr><td>Spacebar</td><td>Start Timer/Stop Timer</td></tr>
+        <tr><td>R</td><td>Reset Timer</td></tr>
+        <tr><td>1</td><td>Add 1 Point for Player 1</td></tr>
+        <tr><td>4</td><td>Remove 1 Point for Player 1</td></tr>
+        <tr><td>3</td><td>Add 1 Point for Player 2</td></tr>
+        <tr><td>6</td><td>Remove 1 Point for Player 2</td></tr>
+        <tr><td>y</td><td>Add 1 Round Won for Player 1</td></tr>
+        <tr><td>a</td><td>Remove 1 Round Won for Player 1</td></tr>
+        <tr><td>m</td><td>Add 1 Round Won for Player 2</td></tr>
+        <tr><td>k</td><td>Remove 1 Round Won for Player 2</td></tr>
+        <tr><td>Delete</td><td>Reset Round (without adding points to total points)</td></tr>
+        <tr><td>Home</td><td>End Round (add current points to total points and update highscores)</td></tr>
+        <tr><td>N</td><td>New Game (starts a new round)</td></tr>
+        <tr><td>Enter</td><td>Switch Player Sides</td></tr>
+    </tbody>
+</table>
+
+## Highscores
+
+Highscores are updated when:
+
+* Rounds end.
+
+Highscores are rendered
+
+* when the room is loaded.
+* by a timer. They switch the type of different highscores during a game.

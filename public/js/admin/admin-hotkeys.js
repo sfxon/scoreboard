@@ -23,6 +23,9 @@ export default class sbAdminPlayers {
 
     addFetchInputKeyListener() {
         this.fetchInputEventListener = (event) => {
+            event.stopPropagation();
+            event.preventDefault();
+            
             // Abort action when escape key was pressed.
             if(event.key === 'Escape') {
                 this.hotkeyOverlayEl.style.display = 'none'; // Hide overlay.
@@ -63,6 +66,9 @@ export default class sbAdminPlayers {
             let wrapperEl = targetBtnEl.closest(".hotkey-row");
             this.inputElToConfigure = wrapperEl.querySelector(".sb-hotkey-input");
             this.hotkeyIdToConfigure = this.inputElToConfigure.getAttribute('data-attr-hotkey-id');
+
+            // Remove the focus from the clicked button, to prevent that it reacts on the enter key, if the enter key is pressed.
+            targetBtnEl.blur();
 
             // Prevent the modal from being closed in the background when a "close" action is performed, since our keyboard input is on top of the modal.
             this.addHideModalListener();
