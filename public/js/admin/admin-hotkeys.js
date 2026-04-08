@@ -25,7 +25,7 @@ export default class sbAdminPlayers {
         this.fetchInputEventListener = (event) => {
             event.stopPropagation();
             event.preventDefault();
-            
+
             // Abort action when escape key was pressed.
             if(event.key === 'Escape') {
                 this.hotkeyOverlayEl.style.display = 'none'; // Hide overlay.

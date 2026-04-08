@@ -85,7 +85,7 @@ export default class sbAdminGeneral {
         this.initGeneralInputField('room', room.id, 'subtitle', this.roomSubtitleInputEl);
         this.initGeneralSwitchField('room', room.id, 'timerActive', this.timerActiveEl);
         this.initRoundTimeInputField('room', room.id, 'roundTime', this.roundTimeInputEl);
-        this.initRoundTimeInputField('room', room.id, 'roundTimeLeft', this.roundTimeLeftInputEl);
+        this.initRoundTimeLeftInputField('room', room.id, 'roundTimeLeft', this.roundTimeLeftInputEl);
     }
 
     updateInputFieldValues() {
@@ -102,6 +102,10 @@ export default class sbAdminGeneral {
 
         this.roundTimeInputEl.value = room.roundTime;
         this.roundTimeLeftInputEl.value = room.roundTimeLeft;
+    }
+
+    updateRoundTimeLeftValue(roundTimeLeft) {
+        this.roundTimeLeftInputEl.value = roundTimeLeft;
     }
 
     /**
@@ -159,6 +163,18 @@ export default class sbAdminGeneral {
         });
     }
 
+    initRoundTimeLeftInputField(entityName, id, updatedRoomVariable, inputFieldEl) {
+        inputFieldEl.addEventListener('change', (event) => {
+            event.stopPropagation();
+            this.roomTimeLeftInputFieldChanged(inputFieldEl, entityName, id, updatedRoomVariable, event.target.value);
+        });
+
+        inputFieldEl.addEventListener('keyup', (event) => {
+            event.stopPropagation();
+            this.roomTimeLeftInputFieldChanged(inputFieldEl, entityName, id, updatedRoomVariable, event.target.value);
+        });
+    }
+
 
     /**
      * Initialise keyboard input handler.
@@ -176,6 +192,8 @@ export default class sbAdminGeneral {
             if(this.sbModal._isShown === true && event.key === 'Escape' ) {
                 this.sbModal.hide();
             } else if(this.sbModal._isShown === false) {
+                this.scoreboard.timer.pauseTimer();
+                this.scoreboard.showPauseMessage();
                 this.sbModal.show();
             }
         });
@@ -205,6 +223,26 @@ export default class sbAdminGeneral {
         } else {
             this.removeFieldErrorMarker(inputFieldEl);
             this.generalInputElementChanged(entityName, id, updatedRoomVariable, value);
+        }
+    }
+
+    roomTimeLeftInputFieldChanged(inputFieldEl, entityName, id, updatedRoomVariable, value) {
+        value = value.trim();
+
+        // Regex:
+        // ^        → Begin-Marker of Regex
+        // \d+      → One or more numbers (Minutes).
+        // :        → Colon
+        // [0-5]\d  → Seconds from 00 to 59
+        // $        → End-Marker of Regex
+        let regex = /^\d+:[0-5]\d$/;
+
+        if(false === regex.test(value)) {
+            this.markFieldWithError(inputFieldEl);
+        } else {
+            this.removeFieldErrorMarker(inputFieldEl);
+            this.generalInputElementChanged(entityName, id, updatedRoomVariable, value);
+            this.scoreboard.timeLeftChanged();
         }
     }
 }

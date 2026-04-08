@@ -19,7 +19,7 @@ export default class sbScoreboard {
         this.keyboardShortcutsActivated = true;
         this.myIncrementAnimator = new sbIncrementAnimator();
         this.roomId = null;
-        this.timer = new sbTimer();
+        this.timer = new sbTimer(this);
         this.highscoreContainer = null;
         this.highscoreRowTemplate = null;
         this.highscoreSubtitleContainer = null;
@@ -78,6 +78,7 @@ export default class sbScoreboard {
         }
 
         this.updatePlayerViews();
+        this.resetRoundTime();
     }
 
     getPlayerByNumber(playerNumber) {
@@ -114,9 +115,17 @@ export default class sbScoreboard {
         return this.myRoom;
     }
 
+    hidePauseMessage() {
+        let timerPausedElement = document.getElementById('sb-timer-paused');
+        timerPausedElement.classList.remove('is-paused');
+    }
+
     hideTimer() {
         let timerElement = document.getElementById('sb-timer');
         timerElement.classList.remove('active');
+
+        let timerPausedElement = document.getElementById('sb-timer-paused');
+        timerPausedElement.classList.remove('active');
     }
 
     incrementPlayerPoints(playerNumber) {
@@ -141,16 +150,22 @@ export default class sbScoreboard {
     }
 
     initKeyboardShortcuts() {
-        document.addEventListener('keyup', (event) => {
-            console.log(event.key);
+        // Verhindere, dass die Seite scrollt, wenn die Leertaste als Shortcut verwendet wird.
+        document.addEventListener('keydown', (event) => {
+            if(event.key === ' ') {
+                event.preventDefault();
+            }
+        })
 
+        // Setze Event-Handler für die verschiedenen Aktionen.
+        document.addEventListener('keyup', (event) => {
             if(!this.keyboardShortcutsActivated) {
                 return;
             }
 
             // Start / Pause the game.
             if(event.key === this.myRoom.keyboardShortcuts['startPause']) {
-                console.log('@TODO: Implement start/stop timer.');
+                this.toggleTimerStartPause();
             }
 
             // Points added or removed per player.
@@ -237,6 +252,7 @@ export default class sbScoreboard {
             this.room.keyboardShortcuts
         );
 
+        this.timer.resetTimer(this.room.roundTimeLeft);
         this.roomNameEl = document.getElementById(this.roomNameId);
         this.roomSubtitleEl = document.getElementById(this.roomSubtitleId);
         this.updateView();
@@ -454,6 +470,18 @@ export default class sbScoreboard {
         }
 
         this.updatePlayerViews();
+        this.resetRoundTime();
+    }
+
+    resetRoundTime() {
+        this.myRoom.roundTimeLeft = this.myRoom.roundTime;
+
+        let data = {};
+        data['id'] = this.myRoom.id;
+        data['roundTimeLeft'] = this.myRoom.roundTimeLeft;
+        this.api.post('room/update', data);
+        this.timer.resetTimer(this.myRoom.roundTimeLeft);
+        this.hidePauseMessage();
     }
 
     saveActivePlayers() {
@@ -478,6 +506,14 @@ export default class sbScoreboard {
     showTimer() {
         let timerElement = document.getElementById('sb-timer');
         timerElement.classList.add('active');
+
+        let timerPausedElement = document.getElementById('sb-timer-paused');
+        timerPausedElement.classList.add('active');
+    }
+
+    showPauseMessage() {
+        let timerPausedElement = document.getElementById('sb-timer-paused');
+        timerPausedElement.classList.add('is-paused');
     }
 
     switchPlayers() {
@@ -493,6 +529,29 @@ export default class sbScoreboard {
         }
 
         this.saveActivePlayers();
+    }
+
+    timeLeftChanged() {
+        this.timer.pauseTimer();
+        this.timer.resetTimer(this.myRoom.roundTimeLeft);
+    }
+
+    toggleTimerStartPause() {
+        if(this.myRoom.timerActive === false) {
+            return;
+        }
+
+        if(!this.timer.isInitialized) {
+            this.timer.resetTimer(this.myRoom.roundTimeLeft);
+        }
+
+        if(this.timer.isPaused === true) {
+            this.timer.resumeTimer();
+            this.hidePauseMessage();
+        } else {
+            this.timer.pauseTimer();
+            this.showPauseMessage();
+        }
     }
 
     updatePlayerValue(playerId, methodName, value) {
@@ -533,6 +592,15 @@ export default class sbScoreboard {
             domEl = document.querySelector('#sb-player-' + playerNumber + ' .lifetime-points');
             domEl.innerHTML = player.lifetimePoints;
         }
+    }
+
+    updateTimeLeft(timeLeft) {
+        this.myRoom.roundTimeLeft = timeLeft;
+
+        let data = {};
+        data['id'] = this.myRoom.id;
+        data['roundTimeLeft'] = this.myRoom.roundTimeLeft;
+        this.api.post('room/update', data);
     }
 
     /**
