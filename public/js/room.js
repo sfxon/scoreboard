@@ -133,4 +133,8 @@ export default class sbRoom {
 
         return null;
     }
+
+    getActivePlayerIds() {
+        return this.activePlayerIds;
+    }
 }

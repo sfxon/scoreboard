@@ -23,6 +23,8 @@ export default class sbLocalApiEndpoint extends sbApi {
                 return this.roomLoad(parameters);
             case 'room/update':
                 return this.roomUpdate(parameters);
+            case 'player/delete':
+                return this.playerDelete(parameters);
             case 'player/upsert':
                 return this.playerUpsert(parameters);
             case 'players/loadByRoomId':
@@ -172,6 +174,27 @@ export default class sbLocalApiEndpoint extends sbApi {
                     reject('Error while loading rooms.');
                 };
             }
+        });
+    }
+
+    playerDelete(playerId) {
+        return new Promise((resolve, reject) => {
+            const transaction = this.db.transaction('player', 'readwrite');
+            const objectStore = transaction.objectStore('player');
+
+            const request = objectStore.delete(playerId);
+
+            request.onsuccess = () => {
+                // optional: könnte man auch leer lassen
+            };
+
+            transaction.oncomplete = () => {
+                resolve(playerId);
+            };
+
+            transaction.onerror = () => {
+                reject(transaction.error);
+            };
         });
     }
 

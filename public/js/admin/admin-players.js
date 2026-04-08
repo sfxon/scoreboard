@@ -13,6 +13,7 @@ export default class sbAdminPlayers {
         this.sbAdminPlayerTemplateId = 'sb-admin-player-template';
         this.sbModal = sbModal;
         this.scoreboard = scoreboard;
+        this.sbCannotRemoveMessageTimeout = null;
 
         // This requires that all DOM Contents are already loaded.
         this.reloadPlayerViews();
@@ -72,6 +73,7 @@ export default class sbAdminPlayers {
 
         this.sbAdminPlayersEl.insertAdjacentElement('beforeend', newPlayerContainer);
         this.initSelectPlayerButtons(newPlayerContainer, player.id);
+        this.initRemovePlayerButton(newPlayerContainer, player.id);
     }
 
     capitalizeFirstLetter(val) {
@@ -112,6 +114,25 @@ export default class sbAdminPlayers {
 
         el.addEventListener('change', (event) => {
             this.inputFieldChangedHandler(domContainer, el, playerMethodName);
+        });
+    }
+
+    initRemovePlayerButton(playerContainer, playerId) {
+        let btn = playerContainer.querySelector('.sb-remove-player');
+
+        btn.addEventListener('click', (event) => {
+            // Check, if this is an active player.
+            let activePlayerIds = this.scoreboard.getRoom().getActivePlayerIds();
+
+            for(let activePlayerId of activePlayerIds) {
+                if(activePlayerId.playerId == playerId) {
+                    this.showCannotRemoveMessage();
+                    return;
+                }
+            }
+
+            playerContainer.remove();
+            this.scoreboard.removePlayer(playerId);
         });
     }
 
@@ -163,5 +184,28 @@ export default class sbAdminPlayers {
     removePlayerPanes() {
         let sbAdminPlayerEl = document.getElementById('sb-admin-players');
         sbAdminPlayerEl.innerHTML = '';
+    }
+
+    hideCannotRemoveMessage() {
+
+    }
+
+    showCannotRemoveMessage() {
+        // Show the element.
+        let element = document.getElementById('sbCannotRemoveMessage');
+        element.classList.add('flash');
+
+        // If message is shown at the moment, remove timeout to reset it, to restart the timer.
+        // Used, when the error occures several times in series without reaching it's limit.
+        if(this.sbCannotRemoveMessageTimeout !== null) {
+            clearTimeout(this.sbCannotRemoveMessageTimeout);
+        }
+
+        // set the timeout.
+        this.sbCannotRemoveMessageTimeout = setTimeout(() => {
+            let element = document.getElementById('sbCannotRemoveMessage');
+            element.classList.remove('flash');
+            this.sbCannotRemoveMessageTimeout = null;
+        }, 3000);
     }
 }

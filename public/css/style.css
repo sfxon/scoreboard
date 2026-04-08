@@ -194,6 +194,7 @@ body {
 
 #sb-admin-players .sb-admin-player {
     margin-bottom: 2rem;
+    position: relative;
 }
 
 #sb-admin-players .btn-check.btn-select-player:checked + .btn {
@@ -308,4 +309,33 @@ h2.modal-title {
     margin-right: auto;
     max-width: 400px;
     padding: 3px 6px;
+}
+
+.sb-admin-player .sb-remove-player {
+    cursor: pointer;
+    position: absolute;
+    right: 6px;
+    top: 6px;
+}
+
+.sb-admin-player .sb-remove-player i {
+    color: #9D001F;
+}
+
+.sb-admin-player .sb-remove-player:hover i {
+    color: #BB0025;
+}
+
+#sbCannotRemoveMessage {
+    display: none;
+    left: 0;
+    margin-left: 20px;
+    position: absolute;
+    top: 10px;
+    width: calc(100% - 40px);
+    z-index: 1056;
+}
+
+#sbCannotRemoveMessage.flash {
+    display: block;
 }

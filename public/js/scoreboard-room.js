@@ -279,6 +279,16 @@ export default class sbScoreboard {
         this.updatePlayerViews();
     }
 
+    async removePlayer(playerId) {
+        const index = this.myRoom.players.findIndex(player => player.id === playerId);
+
+        if (index !== -1) {
+            this.myRoom.players.splice(index, 1);
+        }
+
+        await this.api.post('player/delete', playerId);
+    }
+
     renderHighscorePlayer(position, playerName, points) {
         if(this.highscoreRowTemplate === null) {
             this.highscoreRowTemplate = document.getElementById('sb-highscore-row-template').innerHTML;
