@@ -46,9 +46,10 @@
     // ✓ Add switch player sides button.
     // ✓ Show highscores with switching leaderboards: sorted by roundsWon, sorted by lifetimePoints, sorted by lifetimeWins
     // ✓ Add button to remove a player from the room. Do not remove him, as long as he is an active player.
+    // ✓ Show/Hide Game timer, when it is activated/deactivated in the backend.
 
     // Continue integration here ------------------->
-    // Add "Start" button to start the game timer. (and print out, that the shortcut button to start stop is the spacebar)
+     
     // Leertaste zukünftig so verwenden, dass sie den Timer startet und stoppt, statt den Dialog zu öffnen und zu schließen.
     // Re-Design the screen to make it more attractive.
 

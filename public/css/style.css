@@ -113,7 +113,11 @@ body {
     text-align: center;
 }
 
-#sb-timer.timer-end-blink {
+#sb-timer.active {
+    display: block;
+}
+
+#sb-timer.active.timer-end-blink {
     animation: timerEndBlink 1s steps(1, end) 11; /* Blink for 11 seconds */
 }
 

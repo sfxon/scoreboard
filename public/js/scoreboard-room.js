@@ -114,6 +114,11 @@ export default class sbScoreboard {
         return this.myRoom;
     }
 
+    hideTimer() {
+        let timerElement = document.getElementById('sb-timer');
+        timerElement.classList.remove('active');
+    }
+
     incrementPlayerPoints(playerNumber) {
         let player = this.getPlayerByNumber(playerNumber);
         player.addPoints(1);
@@ -470,6 +475,11 @@ export default class sbScoreboard {
         await this.api.post('player/upsert', playerDto);
     }
 
+    showTimer() {
+        let timerElement = document.getElementById('sb-timer');
+        timerElement.classList.add('active');
+    }
+
     switchPlayers() {
         let player1 = this.myRoom.getActivePlayer(1);
         let player2 = this.myRoom.getActivePlayer(2);
@@ -531,5 +541,11 @@ export default class sbScoreboard {
     updateView() {
         this.roomNameEl.innerHTML = this.myRoom.name;
         this.roomSubtitleEl.innerHTML = this.myRoom.subtitle;
+
+        if(this.myRoom.timerActive === 1) {
+            this.showTimer();
+        } else {
+            this.hideTimer();
+        }
     }
 }
